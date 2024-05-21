@@ -1,15 +1,23 @@
 "use client";
+
 import * as React from "react";
+import { useRouter } from "next/navigation";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Toolbar from "@mui/material/Toolbar";
-import { Icon, IconButton, Input } from "@mui/material";
+import { IconButton, Input } from "@mui/material";
 import Heart from "@/icons/heart";
 import Cart from "@/icons/cart";
 
 function ResponsiveAppBar() {
+  const router = useRouter();
+
+  const handleCartClick = () => {
+    router.push("/cart-section");
+  };
+
   return (
     <AppBar
       position="static"
@@ -61,7 +69,7 @@ function ResponsiveAppBar() {
             }}
           >
             <Input
-              placeholder="What are you looking for ?"
+              placeholder="What are you looking for?"
               sx={{
                 width: { xs: "80px", sm: "100%" },
                 fontSize: { xs: "6px", sm: "14px" },
@@ -71,7 +79,11 @@ function ResponsiveAppBar() {
             <IconButton size="medium">
               <Heart />
             </IconButton>
-            <IconButton sx={{ fontSize: "12px" }} size="medium">
+            <IconButton
+              sx={{ fontSize: "12px" }}
+              size="medium"
+              onClick={handleCartClick}
+            >
               <Cart />
             </IconButton>
           </Box>
@@ -80,4 +92,5 @@ function ResponsiveAppBar() {
     </AppBar>
   );
 }
+
 export default ResponsiveAppBar;
