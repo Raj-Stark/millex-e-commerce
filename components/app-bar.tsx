@@ -5,9 +5,9 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Toolbar from "@mui/material/Toolbar";
-import { Icon, IconButton, Input } from "@mui/material";
-import Heart from "@/icons/heart";
-import Cart from "@/icons/cart";
+import { IconButton, Input } from "@mui/material";
+import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
+import ShoppingCartRoundedIcon from "@mui/icons-material/ShoppingCartRounded";
 
 function ResponsiveAppBar() {
   return (
@@ -68,11 +68,11 @@ function ResponsiveAppBar() {
               }}
             />
 
-            <IconButton size="medium">
-              <Heart />
+            <IconButton size="medium" sx={{ fontSize: "12px", color: "#000" }}>
+              <FavoriteBorderOutlinedIcon />
             </IconButton>
-            <IconButton sx={{ fontSize: "12px" }} size="medium">
-              <Cart />
+            <IconButton sx={{ fontSize: "12px", color: "#000" }} size="medium">
+              <ShoppingCartRoundedIcon />
             </IconButton>
           </Box>
         </Toolbar>

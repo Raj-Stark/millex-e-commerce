@@ -34,7 +34,7 @@ const ProductCard = () => {
       <CardMedia
         component="img"
         height="250"
-        image="https://shop.storiafoods.com/public/storage/product/Mixed_Fruit.jpg"
+        image="https://toolgine.com/wp-content/uploads/2023/07/image-90.webp"
         alt="Mountain"
         sx={{ objectFit: "contain" }}
       />

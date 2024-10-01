@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 
 import { CssBaseline, ThemeProvider } from "@mui/material";
-import ResponsiveAppBar from "@/components/app-bar";
 import appTheme from "@/config/theme";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 
@@ -23,10 +22,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <AppRouterCacheProvider>
           <CssBaseline />
-          <ThemeProvider theme={appTheme}>
-            <ResponsiveAppBar />
-            {children}
-          </ThemeProvider>
+          <ThemeProvider theme={appTheme}>{children}</ThemeProvider>
         </AppRouterCacheProvider>
       </body>
     </html>

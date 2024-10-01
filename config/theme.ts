@@ -5,7 +5,7 @@ const appTheme = createTheme({
   spacing: 8,
   palette: {
     primary: {
-      main: "#7A6FF0",
+      main: "#000000",
       clear: "#EAEAFC",
       dark: "#352C60",
       bgDark: "#F8F8FA",
@@ -14,7 +14,7 @@ const appTheme = createTheme({
     },
 
     secondary: {
-      main: "#F6A623",
+      main: "#F43F5E",
       bgMain: "#FEF5E7",
       dark: "#FF5E00",
       bgDark: "#FFE7D9",
