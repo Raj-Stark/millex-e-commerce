@@ -1,5 +1,3 @@
-import LeftArrow from "@/icons/left-arrow";
-import RightArrow from "@/icons/right-arrow";
 import { Box, Grid, IconButton, Typography } from "@mui/material";
 import React from "react";
 
