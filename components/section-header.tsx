@@ -4,7 +4,7 @@ import React from "react";
 interface Props {
   sectionName: string;
   sectionTitle: string;
-  category: "scroll-btn" | "nextPage-btn";
+  category?: "scroll-btn" | "nextPage-btn";
 }
 
 const SectionHeader = ({ sectionName, sectionTitle }: Props) => {

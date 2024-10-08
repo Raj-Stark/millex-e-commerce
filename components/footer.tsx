@@ -13,9 +13,7 @@ const Footer = () => {
           maxWidth: "100vw",
         },
       }}
-    >
-      footer
-    </Container>
+    ></Container>
   );
 };
 
