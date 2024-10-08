@@ -5,45 +5,37 @@ import { useSearchParams } from "next/navigation";
 import React, { Suspense } from "react";
 import ProductCard from "../components/product-card";
 
-const CategoryPage = () => {
+// Separate component for the content that uses useSearchParams
+const CategoryPageContent = () => {
   const searchParams = useSearchParams();
   const text = searchParams.get("text");
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <Container maxWidth="xl" sx={{ my: 4 }}>
-        <SectionHeader
-          sectionTitle={text ?? ""}
-          sectionName="Item By Category"
-        />
+    <Container maxWidth="xl" sx={{ my: 4 }}>
+      <SectionHeader sectionTitle={text ?? ""} sectionName="Item By Category" />
 
-        <Grid container spacing={3}>
-          <Grid item xs={3}>
+      <Grid container spacing={3}>
+        {Array.from({ length: 8 }).map((_, index) => (
+          <Grid item xs={3} key={index}>
             <ProductCard />
           </Grid>
-          <Grid item xs={3}>
-            <ProductCard />
-          </Grid>
-          <Grid item xs={3}>
-            <ProductCard />
-          </Grid>
-          <Grid item xs={3}>
-            <ProductCard />
-          </Grid>
-          <Grid item xs={3}>
-            <ProductCard />
-          </Grid>
-          <Grid item xs={3}>
-            <ProductCard />
-          </Grid>
-          <Grid item xs={3}>
-            <ProductCard />
-          </Grid>
-          <Grid item xs={3}>
-            <ProductCard />
-          </Grid>
-        </Grid>
-      </Container>
+        ))}
+      </Grid>
+    </Container>
+  );
+};
+
+// Main component with proper Suspense boundary
+const CategoryPage = () => {
+  return (
+    <Suspense
+      fallback={
+        <Container maxWidth="xl" sx={{ my: 4 }}>
+          <div>Loading...</div>
+        </Container>
+      }
+    >
+      <CategoryPageContent />
     </Suspense>
   );
 };
