@@ -12,6 +12,7 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
+import ProductCardBtn from "./product-card-btn";
 
 const ProductCard = () => {
   return (
@@ -61,15 +62,7 @@ const ProductCard = () => {
           background: "#000",
         }}
       >
-        <Button sx={{ color: "#fff" }}>
-          <Typography
-            variant="h6"
-            fontWeight={"500"}
-            textTransform={"capitalize"}
-          >
-            Add To Cart
-          </Typography>
-        </Button>
+        <ProductCardBtn />
       </CardActions>
     </Card>
   );

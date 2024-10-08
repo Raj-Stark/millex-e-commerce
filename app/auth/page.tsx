@@ -1,9 +1,22 @@
+"use client";
 import { Container, Grid } from "@mui/material";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect } from "react";
 import FormBox from "./components/form-box";
+import { useAtomValue } from "jotai";
+import { userAtom } from "@/commonAtoms/userAtom";
+import { useRouter } from "next/navigation";
 
 const AuthPage = () => {
+  const user = useAtomValue(userAtom);
+
+  const router = useRouter();
+
+  useEffect(() => {
+    if (user.isLoggedIn) {
+      router.replace("/");
+    }
+  }, [user.isLoggedIn, router]);
   return (
     <Grid container>
       <Grid item xs={8}>

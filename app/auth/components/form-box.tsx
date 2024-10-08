@@ -24,20 +24,35 @@ const FormBox = () => {
         </Typography>
         <RegisterForm isLogin={isLogin} />
 
-        <Typography sx={{ textAlign: "center", mt: "40px" }}>
-          Already have an account ?{" "}
-          <Link
-            onClick={() => setIsLogin(!isLogin)}
+        {!isLogin ? (
+          <Typography sx={{ textAlign: "center", mt: "40px" }}>
+            Already have an account ?{" "}
+            <Link
+              onClick={() => setIsLogin(true)}
+              sx={{
+                ml: 1,
+                pb: 1,
+                color: "secondary.main",
+                cursor: "pointer",
+              }}
+            >
+              Log In
+            </Link>
+          </Typography>
+        ) : (
+          <Typography
+            onClick={() => setIsLogin(false)}
             sx={{
               ml: 1,
               pb: 1,
               color: "secondary.main",
               cursor: "pointer",
+              textAlign: "center",
             }}
           >
-            Log In
-          </Link>
-        </Typography>
+            Go Back
+          </Typography>
+        )}
       </Stack>
     </Paper>
   );
