@@ -1,7 +1,6 @@
 import { FavoriteBorder, VisibilityRounded } from "@mui/icons-material";
 import {
   Box,
-  Button,
   Card,
   CardActions,
   CardContent,
@@ -13,8 +12,25 @@ import {
 } from "@mui/material";
 import React from "react";
 import ProductCardBtn from "./product-card-btn";
+import Link from "next/link";
 
-const ProductCard = () => {
+interface ProductCardProps {
+  id: string;
+  image: string;
+  title: string;
+  price: number;
+  rating: number;
+  reviewCount: number;
+}
+
+const ProductCard = ({
+  image,
+  title,
+  price,
+  rating,
+  reviewCount,
+  id,
+}: ProductCardProps) => {
   return (
     <Card sx={{ maxWidth: 345, my: 7, position: "relative" }}>
       <Box
@@ -32,24 +48,29 @@ const ProductCard = () => {
           <VisibilityRounded />
         </IconButton>
       </Box>
-      <CardMedia
-        component="img"
-        height="250"
-        image="https://toolgine.com/wp-content/uploads/2023/07/image-90.webp"
-        alt="Mountain"
-        sx={{ objectFit: "contain" }}
-      />
+
+      <Link href={`/${id}`}>
+        <CardMedia
+          component="img"
+          height="250"
+          image={image}
+          alt={title}
+          sx={{ objectFit: "contain" }}
+        />
+      </Link>
 
       <CardContent>
         <Grid>
-          <Typography variant="h6">Indian Bread</Typography>
+          <Typography variant="h6" sx={{ height: "50px" }}>
+            {title}
+          </Typography>
           <Box display={"flex"} alignItems={"center"} mt={1} gap={1}>
             <Typography color={"#DB4444"} fontSize={"16px"} fontWeight={"500"}>
-              $500
+              ${price}
             </Typography>
-            <Rating value={4} />
+            <Rating value={rating} readOnly />
             <Typography fontSize={"12px"} fontWeight={"500"}>
-              (55)
+              ({reviewCount})
             </Typography>
           </Box>
         </Grid>
