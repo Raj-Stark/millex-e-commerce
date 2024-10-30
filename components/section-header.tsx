@@ -1,9 +1,9 @@
-import { Box, Grid, IconButton, Typography } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import React from "react";
 
 interface Props {
   sectionName: string;
-  sectionTitle: string;
+  sectionTitle?: string;
   category?: "scroll-btn" | "nextPage-btn";
 }
 

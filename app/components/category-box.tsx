@@ -1,5 +1,5 @@
 "use client";
-import { Box, Typography, Paper, Card } from "@mui/material";
+import { Box, Typography, Paper } from "@mui/material";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React from "react";
@@ -7,9 +7,10 @@ import React from "react";
 interface Props {
   text: string;
   imgUrl: string;
+  categoryId: string;
 }
 
-const CategoryBox = ({ text, imgUrl }: Props) => {
+const CategoryBox = ({ text, imgUrl, categoryId }: Props) => {
   const router = useRouter();
   return (
     <Paper
@@ -19,9 +20,7 @@ const CategoryBox = ({ text, imgUrl }: Props) => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        // border: "3px solid",
         borderRadius: "8px",
-        // borderColor: "#E9EAEC",
         width: "500px",
         height: "300px",
         position: "relative",
@@ -32,6 +31,7 @@ const CategoryBox = ({ text, imgUrl }: Props) => {
         src={imgUrl}
         alt="Machine Image"
         fill={true}
+        sizes={"100%"}
         style={{
           objectFit: "cover",
           zIndex: 1,
@@ -39,7 +39,7 @@ const CategoryBox = ({ text, imgUrl }: Props) => {
       />
 
       <Box
-        onClick={() => router.push(`/ItemByCategory?text=${text}`)}
+        onClick={() => router.push(`/ItemByCategory/${categoryId}`)}
         sx={{
           cursor: "pointer",
           position: "relative",

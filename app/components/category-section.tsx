@@ -1,9 +1,22 @@
+"use client";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+
 import SectionHeader from "@/components/section-header";
-import { Box, Container, Grid, Typography } from "@mui/material";
+import { Container, Grid } from "@mui/material";
 import React from "react";
 import CategoryBox from "./category-box";
 
 const CategorySection = () => {
+  const { data } = useQuery({
+    queryKey: ["category"],
+    queryFn: async () => {
+      const endpoint = `${process.env.NEXT_PUBLIC_LOCAL_URL}category`;
+      const response = await axios.get(endpoint);
+      return response.data;
+    },
+  });
+
   return (
     <Container
       maxWidth="xl"
@@ -20,27 +33,17 @@ const CategorySection = () => {
         my={7}
         columnGap={4}
       >
-        <CategoryBox
-          text="Rice Mill Machines"
-          imgUrl="https://laxmiflourmill.com/cdn/shop/products/mini-rice-mill-with-grader-machine-3-hp-rice-mill-price-in-india.jpg?v=1691837019"
-        />
-        <CategoryBox
-          text="Flour Mill Machines"
-          imgUrl="https://laxmiflourmill.com/cdn/shop/files/5-hp-pulverizer-machine-5-hp-pulveriser-machine-02.jpg?v=1725356751"
-        />
-        <CategoryBox
-          text="Pulverizer Machines"
-          imgUrl="https://laxmiflourmill.com/cdn/shop/products/mirchi-kandap-machine-heavy-dunk-machine-for-masala-two-stick-with-2-hp-motor.jpg?v=1691836895s"
-        />
-        <CategoryBox
-          text="Chaff Cutter Machines"
-          imgUrl="https://laxmiflourmill.com/cdn/shop/products/PaddyThreserMachine.jpg?v=1691837128"
-        />
-        <CategoryBox
-          text="Spare Parts"
-          imgUrl="https://chetanagro.com/wp-content/uploads/2024/03/OIL-MILL-PARTS-1-chetanagro.webp"
-        />
-        {/* <CategoryBox text="Phones" /> */}
+        {data &&
+          data.categories.map((item: any) => {
+            return (
+              <CategoryBox
+                key={item._id}
+                text={item.name}
+                imgUrl={item.image}
+                categoryId={item._id}
+              />
+            );
+          })}
       </Grid>
     </Container>
   );

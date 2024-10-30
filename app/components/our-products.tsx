@@ -1,41 +1,85 @@
+"use client";
 import SectionHeader from "@/components/section-header";
-import { Container, Grid } from "@mui/material";
+import {
+  CircularProgress,
+  Container,
+  Grid,
+  Box,
+  Typography,
+} from "@mui/material";
 import React from "react";
 import ProductCard from "./product-card";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import { ProductType } from "@/types/product-types";
 
 const OurProducts = () => {
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["product"],
+    queryFn: async () => {
+      const endpoint = `${process.env.NEXT_PUBLIC_LOCAL_URL}product`;
+      const response = await axios.get(endpoint);
+      return response.data;
+    },
+  });
+
+  if (isLoading) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          minHeight: "100vh",
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
+  }
+
+  if (isError) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          minHeight: "100vh",
+        }}
+      >
+        <Typography variant="h6" color="error">
+          Something went wrong: Unable to load products.
+        </Typography>
+      </Box>
+    );
+  }
+
   return (
     <Container maxWidth="xl">
       <SectionHeader
-        sectionName={"Our Products"}
-        sectionTitle={"Explore Our Products"}
-        category={"scroll-btn"}
+        sectionName="Our Products"
+        sectionTitle="Explore Our Products"
+        category="scroll-btn"
       />
       <Grid container spacing={3}>
-        <Grid item xs={3}>
-          <ProductCard />
-        </Grid>
-        <Grid item xs={3}>
-          <ProductCard />
-        </Grid>
-        <Grid item xs={3}>
-          <ProductCard />
-        </Grid>
-        <Grid item xs={3}>
-          <ProductCard />
-        </Grid>
-        <Grid item xs={3}>
-          <ProductCard />
-        </Grid>
-        <Grid item xs={3}>
-          <ProductCard />
-        </Grid>
-        <Grid item xs={3}>
-          <ProductCard />
-        </Grid>
-        <Grid item xs={3}>
-          <ProductCard />
-        </Grid>
+        {data &&
+          data.products &&
+          data.products
+            .filter((item: ProductType) => item.featured)
+            .map((product: ProductType) => (
+              <Grid item xs={3} key={product._id}>
+                <ProductCard
+                  id={product._id}
+                  title={product.name}
+                  image={product.image}
+                  price={product.price}
+                  inventory={product.inventory}
+                  averageRating={product.averageRating}
+                  numOfReviews={product.numOfReviews}
+                />
+              </Grid>
+            ))}
       </Grid>
     </Container>
   );

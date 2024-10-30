@@ -41,7 +41,7 @@ const UserPasswordUpdateForm = () => {
     onSuccess: () => {
       toast.success("Password update successfully !!!");
     },
-    onError: (error) => {
+    onError: () => {
       toast.error("Failed to update password !!!");
     },
   });
