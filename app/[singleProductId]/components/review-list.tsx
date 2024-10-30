@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import React from "react";
 import { format } from "date-fns";
-import { Review } from "../page";
+import { Review } from "@/types/review-types";
 
 interface Props {
   reviews: Review[];
