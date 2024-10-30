@@ -1,3 +1,20 @@
 {
-  "extends": "next/core-web-vitals"
-}
+    "extends": [
+      "next/core-web-vitals"
+    ],
+    "rules": {
+      // Unused Variables
+      "no-unused-vars": ["warn", {
+        "vars": "all", // Check all variables
+        "args": "after-used", // Check only used arguments
+        "ignoreRestSiblings": true, // Ignore rest properties
+        "argsIgnorePattern": "^_", // Ignore variables that start with underscore
+        "varsIgnorePattern": "^_" // Ignore variables that start with underscore
+      }],
+  
+      // Console Logs
+      "no-console": ["warn", {
+        "allow": ["warn", "error", "info"] // Allow these console methods
+      }]
+    }
+  }

@@ -1,5 +1,15 @@
 import { toast } from "react-toastify";
 
-export const triggerLogin = (isLogin: boolean) => {
-  if (!isLogin) return toast.error("Please Login First !!!");
+export const triggerToaster = ({
+  msg,
+  action,
+}: {
+  msg: string;
+  action: "success" | "error";
+}) => {
+  if (action === "success") {
+    return toast.success(msg);
+  } else {
+    return toast.error(msg);
+  }
 };

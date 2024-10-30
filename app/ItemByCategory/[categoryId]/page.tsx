@@ -3,20 +3,7 @@ import SectionHeader from "@/components/section-header";
 import { Container, Grid, Typography } from "@mui/material";
 import React from "react";
 import axios from "axios";
-
-interface Category {
-  name: string;
-}
-
-interface Product {
-  _id: string;
-  name: string;
-  price: number;
-  image: string;
-  numOfReviews: number;
-  averageRating: number;
-  category: Category;
-}
+import { ProductType } from "@/types/product-types";
 
 interface CategoryPageProps {
   params: {
@@ -24,7 +11,9 @@ interface CategoryPageProps {
   };
 }
 
-async function getProductsByCategory(categoryId: string): Promise<Product[]> {
+async function getProductsByCategory(
+  categoryId: string
+): Promise<ProductType[]> {
   try {
     const response = await axios.get(
       `${process.env.NEXT_PUBLIC_LOCAL_URL}product/category/${categoryId}`
@@ -41,7 +30,7 @@ async function getProductsByCategory(categoryId: string): Promise<Product[]> {
 const CategoryPage = async ({ params }: CategoryPageProps) => {
   const { categoryId } = params;
 
-  let data: Product[] = [];
+  let data: ProductType[] = [];
   let error: string | null = null;
 
   try {
@@ -49,6 +38,7 @@ const CategoryPage = async ({ params }: CategoryPageProps) => {
   } catch (err) {
     error = err instanceof Error ? err.message : "An unexpected error occurred";
   }
+
   if (error) {
     return <Typography>Something went wrong !!!</Typography>;
   }
@@ -56,27 +46,28 @@ const CategoryPage = async ({ params }: CategoryPageProps) => {
   return (
     <Container maxWidth="xl" sx={{ my: 4, height: "100vh" }}>
       <SectionHeader
-        sectionTitle={data![0]?.category.name ?? ""}
+        sectionTitle={data[0]?.category.name ?? ""}
         sectionName="Item By Category"
       />
 
       <Grid container spacing={3}>
         {data?.length > 0 ? (
-          data?.map((item) => (
-            <Grid item xs={3} key={item._id}>
+          data?.map((product) => (
+            <Grid item xs={3} key={product._id}>
               <ProductCard
-                reviewCount={item.numOfReviews}
-                rating={item.averageRating ?? 1}
-                title={item.name}
-                image={item.image}
-                price={item.price}
-                id={item._id}
+                id={product._id}
+                title={product.name}
+                image={product.image}
+                price={product.price}
+                inventory={product.inventory}
+                averageRating={product.averageRating}
+                numOfReviews={product.numOfReviews}
               />
             </Grid>
           ))
         ) : (
-          <Typography ml={3} mt={10}>
-            No Product found !!!
+          <Typography mt={16} fontSize={"24px"} textAlign={"center"}>
+            No Product found for this category !!!
           </Typography>
         )}
       </Grid>

@@ -25,7 +25,6 @@ const UserDetailsForm = () => {
     data: userData,
     isLoading,
     isError,
-    error,
   } = useQuery({
     queryKey: ["getCurrentUser"],
     queryFn: async () => {
@@ -83,7 +82,7 @@ const UserDetailsForm = () => {
     onSuccess: () => {
       toast.success("User successfully updated !!!");
     },
-    onError: (error) => {
+    onError: () => {
       toast.error("Failed to update user !!!");
     },
   });

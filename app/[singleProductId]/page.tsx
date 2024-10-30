@@ -13,6 +13,9 @@ import Image from "next/image";
 import AddToCartSection from "./components/add-to-cart-section";
 import AddReviewForm from "./components/add-review-form";
 import ReviewList from "./components/review-list";
+import { formatCurrency } from "@/utils/format-currency";
+import { ProductType } from "@/types/product-types";
+import { Review } from "@/types/review-types";
 
 interface SingleProductPageProps {
   params: {
@@ -20,20 +23,13 @@ interface SingleProductPageProps {
   };
 }
 
-export interface Product {
-  _id: string;
-  name: string;
-  price: number;
-  image: string;
-  numOfReviews: number;
-  averageRating: number;
-  description: string;
-  reviews: [];
+export interface SingleProductType extends ProductType {
+  reviews: Review[];
 }
 
 async function getProductById(
   singleProductId: string
-): Promise<Product | null> {
+): Promise<SingleProductType | null> {
   try {
     const response = await axios.get(
       `${process.env.NEXT_PUBLIC_LOCAL_URL}product/${singleProductId}`
@@ -50,7 +46,7 @@ async function getProductById(
 const SingleProductPage = async ({ params }: SingleProductPageProps) => {
   const { singleProductId } = params;
 
-  let product: Product | null = null;
+  let product: SingleProductType | null = null;
   let error: string | null = null;
 
   try {
@@ -64,10 +60,8 @@ const SingleProductPage = async ({ params }: SingleProductPageProps) => {
   }
 
   if (!product) {
-    return <Typography>No Product found !!!</Typography>;
+    return <Typography>No ProductType found !!!</Typography>;
   }
-
-  console.log(product);
 
   return (
     <Container
@@ -140,15 +134,27 @@ const SingleProductPage = async ({ params }: SingleProductPageProps) => {
               sx={{ border: "1px solid red", mx: 3 }}
             />
 
-            <Typography sx={{ color: "#00FF66" }}>In Stock</Typography>
+            <Typography
+              sx={{ color: product.inventory !== 0 ? "#00FF66" : "#F43F5E" }}
+            >
+              {product.inventory === 0 ? "Out Of Stock" : "In Stock"}
+            </Typography>
           </Box>
           <Typography mt={2} fontSize={"24px"} variant="h6">
-            Rs.{product.price}
+            {formatCurrency(product.price)}
           </Typography>
           <Typography mt={2}>{product.description}</Typography>
 
           <Divider sx={{ mt: 4 }} />
-          <AddToCartSection />
+          <AddToCartSection
+            id={product._id}
+            title={product.name}
+            image={product.image}
+            price={product.price}
+            inventory={product.inventory}
+            averageRating={product.averageRating}
+            numOfReviews={product.numOfReviews}
+          />
         </Grid>
       </Grid>
 

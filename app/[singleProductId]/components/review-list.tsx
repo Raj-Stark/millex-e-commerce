@@ -9,20 +9,7 @@ import {
 } from "@mui/material";
 import React from "react";
 import { format } from "date-fns";
-
-interface User {
-  _id: string;
-  name: string;
-  email: string;
-}
-
-interface Review {
-  _id: string;
-  rating: number;
-  comment: string;
-  createdAt: string;
-  userId: User;
-}
+import { Review } from "../page";
 
 interface Props {
   reviews: Review[];

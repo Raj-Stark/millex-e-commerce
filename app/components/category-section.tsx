@@ -8,7 +8,7 @@ import React from "react";
 import CategoryBox from "./category-box";
 
 const CategorySection = () => {
-  const { data, isLoading, error } = useQuery({
+  const { data } = useQuery({
     queryKey: ["category"],
     queryFn: async () => {
       const endpoint = `${process.env.NEXT_PUBLIC_LOCAL_URL}category`;

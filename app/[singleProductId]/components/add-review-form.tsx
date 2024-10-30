@@ -47,12 +47,12 @@ const AddReviewForm = ({ productId }: Props) => {
 
       return response.data;
     },
-    onSuccess: (data) => {
+    onSuccess: () => {
       toast.success("Review submitted successfully");
       reset();
     },
-    onError: (error) => {
-      toast.error(error?.response.data.msg);
+    onError: () => {
+      toast.error("Something went wrong !!");
       reset();
     },
   });

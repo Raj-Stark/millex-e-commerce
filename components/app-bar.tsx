@@ -5,31 +5,36 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Toolbar from "@mui/material/Toolbar";
-import { IconButton, Input } from "@mui/material";
+import { Badge, IconButton } from "@mui/material";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import ShoppingCartRoundedIcon from "@mui/icons-material/ShoppingCartRounded";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import { triggerLogin } from "@/utils/triggerLogin";
 import { useAtomValue } from "jotai";
 import { userAtom } from "@/commonAtoms/userAtom";
 import { useRouter } from "next/navigation";
+import { cartAtom } from "@/commonAtoms/cartAtom";
+import { wishListAtom } from "@/commonAtoms/wishListAtom";
+import SearchBar from "./search-bar";
 
 function ResponsiveAppBar() {
   const user = useAtomValue(userAtom);
-
+  const wishlist = useAtomValue(wishListAtom);
+  const cart = useAtomValue(cartAtom);
   const router = useRouter();
+
   return (
     <AppBar
       position="static"
       sx={{
         backgroundColor: "greyScale.white",
         color: "#000",
+        height: "80px",
       }}
     >
       <Container
         maxWidth="xl"
         sx={{
-          background: "greyScale.white",
+          mt: 1,
           "&.MuiContainer-root": {
             padding: 0,
           },
@@ -40,9 +45,11 @@ function ResponsiveAppBar() {
           sx={{
             display: "flex",
             justifyContent: "space-between",
+            alignItems: "center",
           }}
         >
           <Typography
+            onClick={() => router.push("/")}
             variant="h6"
             noWrap
             component="a"
@@ -58,20 +65,7 @@ function ResponsiveAppBar() {
           >
             LOGO
           </Typography>
-
-          <Input
-            placeholder="What are you looking for ?"
-            type="text"
-            sx={{
-              border: "1px solid #000",
-              borderRadius: "5px",
-              paddingX: 1,
-              width: "800px",
-              ml: "120px",
-
-              fontSize: { xs: "6px", sm: "14px" },
-            }}
-          />
+          <SearchBar />
 
           <Box
             display={"flex"}
@@ -85,16 +79,24 @@ function ResponsiveAppBar() {
             <IconButton
               size="medium"
               sx={{ color: "#000" }}
-              onClick={() => triggerLogin(user.isLoggedIn)}
+              onClick={() => {
+                router.push("/wishlist");
+              }}
             >
-              <FavoriteBorderOutlinedIcon style={{ fontSize: "28px" }} />
+              <Badge badgeContent={wishlist.length} color="secondary">
+                <FavoriteBorderOutlinedIcon style={{ fontSize: "28px" }} />
+              </Badge>
             </IconButton>
             <IconButton
               sx={{ color: "#000" }}
               size="medium"
-              onClick={() => triggerLogin(user.isLoggedIn)}
+              onClick={() => {
+                router.push("/cart");
+              }}
             >
-              <ShoppingCartRoundedIcon style={{ fontSize: "28px" }} />
+              <Badge badgeContent={cart.length} color="secondary">
+                <ShoppingCartRoundedIcon style={{ fontSize: "28px" }} />
+              </Badge>
             </IconButton>
             {user.isLoggedIn ? (
               <IconButton
@@ -124,4 +126,5 @@ function ResponsiveAppBar() {
     </AppBar>
   );
 }
+
 export default ResponsiveAppBar;

@@ -54,7 +54,6 @@ const RegisterForm = ({ isLogin }: Props) => {
     },
 
     onSuccess: (data) => {
-      console.log(data);
       toast.success("Successfully logged in");
       setUser({
         isLoggedIn: true,
@@ -63,8 +62,7 @@ const RegisterForm = ({ isLogin }: Props) => {
       });
       router.replace("/");
     },
-    onError: (error) => {
-      console.log(error);
+    onError: () => {
       toast.error("Something went wrong! Failed to log in");
     },
   });
