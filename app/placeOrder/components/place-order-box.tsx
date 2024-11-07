@@ -1,15 +1,13 @@
-"use client";
 import { cartAtom } from "@/commonAtoms/cartAtom";
 import CommonButton from "@/components/button";
 import { formatCurrency } from "@/utils/format-currency";
-import { Box, Divider, Paper, Stack, Typography } from "@mui/material";
+import { Box, Divider, Stack, Typography } from "@mui/material";
 import { useAtomValue } from "jotai";
 import { useRouter } from "next/navigation";
 import React from "react";
 
-const CheckoutBox = () => {
+const PlaceOrderBox = () => {
   const cart = useAtomValue(cartAtom);
-
   const router = useRouter();
 
   const getCartTotal = () => {
@@ -17,9 +15,8 @@ const CheckoutBox = () => {
       return (accu += item.cartTotal);
     }, 0);
   };
-
   return (
-    <Paper sx={{ maxWidth: "560px", my: 8, p: 2 }}>
+    <Box sx={{ maxWidth: "400px" }} mt={8}>
       <Typography fontSize={"20px"} fontWeight={"medium"}>
         Cart Total :
       </Typography>
@@ -46,10 +43,10 @@ const CheckoutBox = () => {
         sx={{ width: "100%", mt: 4 }}
         onClick={() => router.push("/placeOrder")}
       >
-        <Typography>Checkout !!</Typography>
+        <Typography textTransform={"capitalize"}>Place Order</Typography>
       </CommonButton>
-    </Paper>
+    </Box>
   );
 };
 
-export default CheckoutBox;
+export default PlaceOrderBox;
