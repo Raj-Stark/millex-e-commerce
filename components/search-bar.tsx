@@ -7,6 +7,8 @@ import { useDebounce } from "@uidotdev/usehooks";
 import React from "react";
 import { useForm } from "react-hook-form";
 
+interface SearchBarProps {}
+
 const SearchBar = () => {
   const { register, watch } = useForm({
     defaultValues: {
@@ -38,7 +40,7 @@ const SearchBar = () => {
   });
 
   return (
-    <Box sx={{ position: "relative" }}>
+    <Box sx={{ position: "relative", width: "100%" }}>
       <Input
         placeholder="What are you looking for?"
         type="text"

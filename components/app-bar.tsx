@@ -5,10 +5,18 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Toolbar from "@mui/material/Toolbar";
-import { Badge, IconButton } from "@mui/material";
+import {
+  Badge,
+  IconButton,
+  Drawer,
+  List,
+  ListItem,
+  ListItemText,
+} from "@mui/material";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import ShoppingCartRoundedIcon from "@mui/icons-material/ShoppingCartRounded";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import MenuIcon from "@mui/icons-material/Menu";
 import { useAtomValue } from "jotai";
 import { userAtom } from "@/commonAtoms/userAtom";
 import { useRouter } from "next/navigation";
@@ -22,13 +30,44 @@ function ResponsiveAppBar() {
   const cart = useAtomValue(cartAtom);
   const router = useRouter();
 
+  const [mobileOpen, setMobileOpen] = React.useState(false);
+
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
+  };
+
+  const drawer = (
+    <Box sx={{ width: 250 }}>
+      <List>
+        <ListItem button onClick={() => router.push("/wishlist")}>
+          <FavoriteBorderOutlinedIcon />
+          <ListItemText primary="Wishlist" sx={{ ml: 2 }} />
+        </ListItem>
+        <ListItem button onClick={() => router.push("/cart")}>
+          <ShoppingCartRoundedIcon />
+          <ListItemText primary="Cart" sx={{ ml: 2 }} />
+        </ListItem>
+        <ListItem
+          button
+          onClick={() => router.push(user.isLoggedIn ? "/profile" : "/auth")}
+        >
+          <AccountCircleIcon />
+          <ListItemText
+            primary={user.isLoggedIn ? user.name : "Login/Register"}
+            sx={{ ml: 2 }}
+          />
+        </ListItem>
+      </List>
+    </Box>
+  );
+
   return (
     <AppBar
       position="static"
       sx={{
         backgroundColor: "greyScale.white",
         color: "#000",
-        height: "80px",
+        height: { xs: "auto", md: "80px" },
       }}
     >
       <Container
@@ -53,7 +92,6 @@ function ResponsiveAppBar() {
             variant="h6"
             noWrap
             component="a"
-            href="#app-bar-with-responsive-menu"
             sx={{
               mr: 2,
               fontFamily: "monospace",
@@ -61,27 +99,27 @@ function ResponsiveAppBar() {
               letterSpacing: ".3rem",
               color: "inherit",
               textDecoration: "none",
+              display: { xs: "flex", md: "block" },
             }}
           >
             LOGO
           </Typography>
-          <SearchBar />
+
+          <Box sx={{ flexGrow: 1, mx: { xs: 1, md: 3 }, display: "flex" }}>
+            <SearchBar />
+          </Box>
 
           <Box
-            display={"flex"}
-            alignItems={"center"}
-            gap={{ xs: 1, sm: 3 }}
             sx={{
-              flexShrink: { xs: 0, md: 1 },
-              flexGrow: 0,
+              display: { xs: "none", md: "flex" },
+              alignItems: "center",
+              gap: 3,
             }}
           >
             <IconButton
               size="medium"
               sx={{ color: "#000" }}
-              onClick={() => {
-                router.push("/wishlist");
-              }}
+              onClick={() => router.push("/wishlist")}
             >
               <Badge badgeContent={wishlist.length} color="secondary">
                 <FavoriteBorderOutlinedIcon style={{ fontSize: "28px" }} />
@@ -90,9 +128,7 @@ function ResponsiveAppBar() {
             <IconButton
               sx={{ color: "#000" }}
               size="medium"
-              onClick={() => {
-                router.push("/cart");
-              }}
+              onClick={() => router.push("/cart")}
             >
               <Badge badgeContent={cart.length} color="secondary">
                 <ShoppingCartRoundedIcon style={{ fontSize: "28px" }} />
@@ -121,8 +157,31 @@ function ResponsiveAppBar() {
               </IconButton>
             )}
           </Box>
+
+          {/* Mobile Menu */}
+          <Box sx={{ display: { xs: "flex", md: "none" } }}>
+            <IconButton
+              size="large"
+              aria-label="open drawer"
+              onClick={handleDrawerToggle}
+              sx={{ color: "#000" }}
+            >
+              <MenuIcon />
+            </IconButton>
+          </Box>
         </Toolbar>
       </Container>
+
+      <Drawer
+        anchor="right"
+        open={mobileOpen}
+        onClose={handleDrawerToggle}
+        ModalProps={{
+          keepMounted: true,
+        }}
+      >
+        {drawer}
+      </Drawer>
     </AppBar>
   );
 }
