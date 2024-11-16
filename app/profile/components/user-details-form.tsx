@@ -4,7 +4,7 @@ import { Grid, TextField, Typography } from "@mui/material";
 import React, { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useQuery, useMutation } from "@tanstack/react-query";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { toast } from "react-toastify";
 
 interface FormData {
@@ -15,6 +15,7 @@ interface FormData {
   state: string;
   zip: string;
   country: string;
+  phone: string;
 }
 
 const UserDetailsForm = () => {
@@ -49,6 +50,7 @@ const UserDetailsForm = () => {
       state: "",
       zip: "",
       country: "",
+      phone: "",
     },
   });
 
@@ -61,6 +63,7 @@ const UserDetailsForm = () => {
       setValue("state", userData?.address?.state || "");
       setValue("zip", userData?.address?.zip || "");
       setValue("country", userData?.address?.country || "");
+      setValue("phone", userData?.phone || "");
     }
   }, [userData, setValue]);
 
@@ -75,15 +78,21 @@ const UserDetailsForm = () => {
       };
       await axios.patch(
         updateUserEndpoint,
-        { name: data.name, email: data.email, address },
+        { name: data.name, email: data.email, phone: data.phone, address },
         { withCredentials: true }
       );
     },
     onSuccess: () => {
       toast.success("User successfully updated !!!");
     },
-    onError: () => {
-      toast.error("Failed to update user !!!");
+    onError: (error) => {
+      if (error instanceof AxiosError) {
+        const errorMessage =
+          error.response?.data?.msg || "Failed to update user!";
+        toast.error(errorMessage);
+      } else {
+        toast.error("Failed to update user !!!");
+      }
     },
   });
 
@@ -155,45 +164,47 @@ const UserDetailsForm = () => {
           />
         </Grid>
 
-        {["street", "city", "state", "zip", "country"].map((fieldName) => (
-          <Grid item xs={6} key={fieldName}>
-            <Controller
-              name={fieldName as keyof FormData}
-              control={control}
-              rules={{
-                required: `${
-                  fieldName.charAt(0).toUpperCase() + fieldName.slice(1)
-                } is required`,
-              }}
-              render={({ field }) => (
-                <>
-                  <TextField
-                    variant="filled"
-                    placeholder={
-                      fieldName.charAt(0).toUpperCase() + fieldName.slice(1)
-                    }
-                    {...field}
-                    error={!!errors[fieldName as keyof FormData]}
-                    sx={{
-                      width: "100%",
-                      "& .MuiFilledInput-input": {
-                        padding: 1.4,
-                      },
-                    }}
-                  />
-                  {errors[fieldName as keyof FormData] && (
-                    <Typography
-                      component="span"
-                      sx={{ color: "secondary.main" }}
-                    >
-                      {errors[fieldName as keyof FormData]?.message}
-                    </Typography>
-                  )}
-                </>
-              )}
-            />
-          </Grid>
-        ))}
+        {["street", "city", "state", "zip", "country", "phone"].map(
+          (fieldName) => (
+            <Grid item xs={6} key={fieldName}>
+              <Controller
+                name={fieldName as keyof FormData}
+                control={control}
+                rules={{
+                  required: `${
+                    fieldName.charAt(0).toUpperCase() + fieldName.slice(1)
+                  } is required`,
+                }}
+                render={({ field }) => (
+                  <>
+                    <TextField
+                      variant="filled"
+                      placeholder={
+                        fieldName.charAt(0).toUpperCase() + fieldName.slice(1)
+                      }
+                      {...field}
+                      error={!!errors[fieldName as keyof FormData]}
+                      sx={{
+                        width: "100%",
+                        "& .MuiFilledInput-input": {
+                          padding: 1.4,
+                        },
+                      }}
+                    />
+                    {errors[fieldName as keyof FormData] && (
+                      <Typography
+                        component="span"
+                        sx={{ color: "secondary.main" }}
+                      >
+                        {errors[fieldName as keyof FormData]?.message}
+                      </Typography>
+                    )}
+                  </>
+                )}
+              />
+            </Grid>
+          )
+        )}
 
         <Grid item xs={6}>
           <CommonButton type="submit">
