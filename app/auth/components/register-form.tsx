@@ -7,7 +7,7 @@ import { Controller, useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { useSetAtom } from "jotai";
 import { userAtom } from "@/commonAtoms/userAtom";
 
@@ -62,8 +62,15 @@ const RegisterForm = ({ isLogin }: Props) => {
       });
       router.replace("/");
     },
-    onError: () => {
-      toast.error("Something went wrong! Failed to log in");
+
+    onError: (error) => {
+      if (error instanceof AxiosError) {
+        const errorMessage =
+          error.response?.data?.msg || "Failed to update user!";
+        toast.error(errorMessage);
+      } else {
+        toast.error("Failed to update user !!!");
+      }
     },
   });
 

@@ -65,6 +65,14 @@ const ProfileList = () => {
     if (item.name === "Logout") {
       logout();
     }
+
+    if (item.name === "My Orders") {
+      router.push("/orderList");
+    }
+
+    if (item.name === "My Wishlist") {
+      router.push("/wishlist");
+    }
   };
 
   return (
