@@ -7,8 +7,6 @@ import { useDebounce } from "@uidotdev/usehooks";
 import React from "react";
 import { useForm } from "react-hook-form";
 
-interface SearchBarProps {}
-
 const SearchBar = () => {
   const { register, watch } = useForm({
     defaultValues: {
@@ -40,7 +38,12 @@ const SearchBar = () => {
   });
 
   return (
-    <Box sx={{ position: "relative", width: "100%" }}>
+    <Box
+      sx={{
+        maxWidth: { xs: "90%", sm: "80%" },
+        marginX: "auto",
+      }}
+    >
       <Input
         placeholder="What are you looking for?"
         type="text"
@@ -50,8 +53,7 @@ const SearchBar = () => {
           borderRadius: "5px",
           paddingX: 1,
           height: "40px",
-          width: "800px",
-          ml: "120px",
+          width: { xs: "100%", sm: "80%", md: "600px" },
           fontSize: { xs: "6px", sm: "14px" },
           "&::focus": {
             outline: "none",
@@ -72,9 +74,6 @@ const SearchBar = () => {
         <Box
           sx={{
             position: "absolute",
-            top: "45px",
-            left: "120px",
-            width: "800px",
             maxHeight: "400px",
             overflowY: "auto",
             backgroundColor: "white",
@@ -109,7 +108,7 @@ const SearchBar = () => {
               <Box
                 key={index}
                 sx={{
-                  p: 2,
+                  p: 1.5,
                   borderBottom: "1px solid #eaeaea",
                   cursor: "pointer",
                   "&:hover": {

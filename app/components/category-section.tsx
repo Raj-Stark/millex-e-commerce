@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
 import SectionHeader from "@/components/section-header";
-import { Container, Grid } from "@mui/material";
+import { Box, Container } from "@mui/material";
 import React from "react";
 import CategoryBox from "./category-box";
 
@@ -27,24 +27,38 @@ const CategorySection = () => {
         sectionTitle="Browse By Category"
         category="scroll-btn"
       />
-      <Grid
-        display={"flex"}
-        justifyContent={"space-between"}
-        my={7}
-        columnGap={4}
+      <Box
+        sx={{
+          display: "flex",
+          overflowX: "auto",
+          whiteSpace: "nowrap",
+          mt: 2,
+          gap: { xs: 2, sm: 3 },
+          pb: 1,
+          "&::-webkit-scrollbar": {
+            display: "none",
+          },
+        }}
       >
         {data &&
           data.categories.map((item: any) => {
             return (
-              <CategoryBox
+              <Box
                 key={item._id}
-                text={item.name}
-                imgUrl={item.image}
-                categoryId={item._id}
-              />
+                sx={{
+                  display: "inline-block",
+                  flex: "0 0 auto",
+                }}
+              >
+                <CategoryBox
+                  text={item.name}
+                  imgUrl={item.image}
+                  categoryId={item._id}
+                />
+              </Box>
             );
           })}
-      </Grid>
+      </Box>
     </Container>
   );
 };

@@ -85,30 +85,53 @@ function ResponsiveAppBar() {
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
+            flexDirection: { xs: "row", md: "row" },
           }}
         >
+          {/* Logo */}
           <Typography
             onClick={() => router.push("/")}
             variant="h6"
             noWrap
             component="a"
             sx={{
-              mr: 2,
               fontFamily: "monospace",
               fontWeight: 700,
               letterSpacing: ".3rem",
               color: "inherit",
               textDecoration: "none",
-              display: { xs: "flex", md: "block" },
+              cursor: "pointer",
+              display: "flex",
+              alignItems: "center",
             }}
           >
             LOGO
           </Typography>
 
-          <Box sx={{ flexGrow: 1, mx: { xs: 1, md: 3 }, display: "flex" }}>
+          {/* Search Bar */}
+          <Box
+            sx={{
+              flexGrow: 1,
+              ml: { xs: 1, md: 2 },
+              maxWidth: { xs: "70%", md: "600px" },
+            }}
+          >
             <SearchBar />
           </Box>
 
+          {/* Mobile Menu */}
+          <Box sx={{ display: { xs: "flex", md: "none" } }}>
+            <IconButton
+              size="large"
+              aria-label="open drawer"
+              onClick={handleDrawerToggle}
+              sx={{ color: "#000" }}
+            >
+              <MenuIcon />
+            </IconButton>
+          </Box>
+
+          {/* Desktop Menu */}
           <Box
             sx={{
               display: { xs: "none", md: "flex" },
@@ -157,21 +180,10 @@ function ResponsiveAppBar() {
               </IconButton>
             )}
           </Box>
-
-          {/* Mobile Menu */}
-          <Box sx={{ display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="open drawer"
-              onClick={handleDrawerToggle}
-              sx={{ color: "#000" }}
-            >
-              <MenuIcon />
-            </IconButton>
-          </Box>
         </Toolbar>
       </Container>
 
+      {/* Drawer for mobile */}
       <Drawer
         anchor="right"
         open={mobileOpen}

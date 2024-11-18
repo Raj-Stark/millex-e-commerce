@@ -21,8 +21,8 @@ const CategoryBox = ({ text, imgUrl, categoryId }: Props) => {
         justifyContent: "center",
         alignItems: "center",
         borderRadius: "8px",
-        width: "500px",
-        height: "300px",
+        height: "350px",
+        width: "280px",
         position: "relative",
         overflow: "hidden",
       }}

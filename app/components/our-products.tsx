@@ -68,7 +68,14 @@ const OurProducts = () => {
           data.products
             .filter((item: ProductType) => item.featured)
             .map((product: ProductType) => (
-              <Grid item xs={3} key={product._id}>
+              <Grid
+                item
+                xs={12} // Full width on extra-small screens
+                sm={6} // Two cards per row on small screens
+                md={4} // Three cards per row on medium screens
+                lg={3} // Four cards per row on large screens
+                key={product._id}
+              >
                 <ProductCard
                   id={product._id}
                   title={product.name}
