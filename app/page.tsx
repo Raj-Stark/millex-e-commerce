@@ -9,10 +9,10 @@ const Home = () => {
   return (
     <>
       <ResponsiveAppBar />
-      <Stack color="primary.main" direction={"column"} gap={"140px"}>
+      <Stack color="primary.main" direction={"column"}>
         <HeroSection />
-        <CategorySection />
-        <OurProducts />
+        <CategorySection sx={{mt: {xs: "50px", md: "80px", xl: "120px"}}}/>
+        <OurProducts sx={{mt: {xs: "50px", md: "80px", xl: "120px"}}}/>
       </Stack>
       <Footer />
     </>

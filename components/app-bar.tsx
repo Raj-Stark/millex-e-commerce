@@ -74,6 +74,7 @@ function ResponsiveAppBar() {
         maxWidth="xl"
         sx={{
           mt: 1,
+          px: {xs: "16px !important", sm: "24px !important"},
           "&.MuiContainer-root": {
             padding: 0,
           },
@@ -105,7 +106,7 @@ function ResponsiveAppBar() {
             LOGO
           </Typography>
 
-          <Box sx={{ flexGrow: 1, mx: { xs: 1, md: 3 }, display: "flex" }}>
+          <Box sx={{ flexGrow: 1}}>
             <SearchBar />
           </Box>
 
