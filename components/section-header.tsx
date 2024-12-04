@@ -9,10 +9,10 @@ interface Props {
 
 const SectionHeader = ({ sectionName, sectionTitle }: Props) => {
   return (
-    <Grid container display={"flex"} flexDirection={"column"} gap={4}>
+    <Grid container display={"flex"} flexDirection={"column"} gap={{xs: 2, sm: 4}}>
       <Grid item display={"flex"} gap={"16px"} alignItems={"center"}>
-        <Box bgcolor={"#F43F5E"} width={"20px"} height={"60px"}></Box>
-        <Typography variant="subtitle" fontSize={"24px"} color={"#000000"}>
+        <Box bgcolor={"#F43F5E"} width={{xs: "15px",md: "20px"}} height={{xs: "40px", sm: "60px"}}></Box>
+        <Typography variant="subtitle" fontSize={{xs: "16px", sm: "24px" }} color={"#000000"}>
           {sectionName}
         </Typography>
       </Grid>
@@ -24,7 +24,7 @@ const SectionHeader = ({ sectionName, sectionTitle }: Props) => {
         justifyContent={"space-between"}
         color={"#000"}
       >
-        <Typography variant="h3">{sectionTitle}</Typography>
+        <Typography variant="h3" fontSize={{xs: "16px", sm: "24px"}}>{sectionTitle}</Typography>
       </Grid>
     </Grid>
   );

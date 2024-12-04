@@ -18,10 +18,11 @@ const CategoryBox = ({ text, imgUrl, categoryId }: Props) => {
       elevation={3}
       sx={{
         display: "flex",
+        flex: 1,
+        minWidth: {xs: "210px"},
         justifyContent: "center",
         alignItems: "center",
         borderRadius: "8px",
-        width: "500px",
         height: "300px",
         position: "relative",
         overflow: "hidden",

@@ -40,19 +40,21 @@ const SearchBar = () => {
   });
 
   return (
-    <Box sx={{ position: "relative", width: "100%" }}>
+    <Box sx={{display: "flex", position: "relative", flexGrow: 1}}>
       <Input
         placeholder="What are you looking for?"
         type="text"
         {...register("search")}
         sx={{
+          width: "100%",
+          maxWidth: "800px",
           border: "1px solid #000",
-          borderRadius: "5px",
+          borderRadius: "3px",
           paddingX: 1,
-          height: "40px",
-          width: "800px",
-          ml: "120px",
-          fontSize: { xs: "6px", sm: "14px" },
+          marginLeft: {md: "50px"},
+          marginRight: {md: "20px"},
+          height: {xs: "35px", lg: "40px"},
+          fontSize: { xs: "12px", sm: "14px" },
           "&::focus": {
             outline: "none",
           },
