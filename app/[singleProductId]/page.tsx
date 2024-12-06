@@ -4,7 +4,6 @@ import {
   Divider,
   Grid,
   Paper,
-  Rating,
   Typography,
 } from "@mui/material";
 import React from "react";
@@ -16,6 +15,7 @@ import ReviewList from "./components/review-list";
 import { formatCurrency } from "@/utils/format-currency";
 import { ProductType } from "@/types/product-types";
 import { Review } from "@/types/review-types";
+import ProductRatings from "./components/product-ratings";
 
 interface SingleProductPageProps {
   params: {
@@ -68,34 +68,23 @@ const SingleProductPage = async ({ params }: SingleProductPageProps) => {
       maxWidth="xl"
       sx={{
         minHeight: "100vh",
-        "&.MuiContainer-root": {
-          paddingLeft: 0,
-          paddingRight: 0,
-          mb: 10,
-        },
+        display: "flex",
+        flexDirection: "column",
+        marginBottom: 10
       }}
     >
       <Grid
         container
-        mt={16}
-        sx={{
-          "&.MuiGrid-root": {
-            marginLeft: 0,
-            width: "100%",
-          },
-        }}
+        columns={{ xs: 1, lg: 2.5 }}
+        columnSpacing={{ xs: 4, lg: 8 }}
+        mt={{ xs: 4, md: 12 }}
+        rowSpacing={{ xs: 2, lg: 0 }}
       >
         <Grid
           item
-          xs={5}
-          sx={{
-            "&.MuiGrid-item": {
-              paddingTop: 0,
-              paddingLeft: 0,
-            },
-          }}
+          xs={1}
         >
-          <Paper sx={{ position: "relative", height: "600px", width: "600px" }}>
+          <Paper sx={{ position: "relative", height: { xs: "200px", sm: "300px", md: '400px', lg: "600px" }, width: "100%" }}>
             <Image
               fill={true}
               alt="product-image"
@@ -106,46 +95,37 @@ const SingleProductPage = async ({ params }: SingleProductPageProps) => {
         </Grid>
         <Grid
           item
-          xs={7}
-          sx={{
-            "&.MuiGrid-item": {
-              paddingTop: 0,
-            },
-          }}
+          xs={1}
+          lg={1.5}
         >
-          <Typography sx={{ fontSize: "24px", fontWeight: "bold" }}>
+          <Typography sx={{ fontWeight: "bold" }} fontSize={{ xs: 20, sm: 24 }}>
             {product.name}
           </Typography>
-          <Box display={"flex"} justifyContent={"flex-start"} mt={2}>
-            <Rating
-              name="half-rating"
-              readOnly
-              defaultValue={product.averageRating}
-              precision={0.5}
-            />
-
+          <Box display={"flex"} justifyContent={"flex-start"} mt={2} alignItems={"center"}>
+            <ProductRatings rating={product.averageRating} />
             <Typography
+              fontSize={{ xs: 12, sm: 16 }}
               sx={{ ml: 1 }}
             >{`${product.numOfReviews} reviews`}</Typography>
 
             <Divider
               orientation="vertical"
               flexItem
-              sx={{ border: "1px solid red", mx: 3 }}
+              sx={{ border: "1px solid red", mx: { xs: 1, sm: 3 } }}
             />
 
             <Typography
-              sx={{ color: product.inventory !== 0 ? "#00FF66" : "#F43F5E" }}
+              sx={{ color: product.inventory !== 0 ? "#00FF66" : "#F43F5E", fontSize: { xs: 12, sm: 16 } }}
             >
               {product.inventory === 0 ? "Out Of Stock" : "In Stock"}
             </Typography>
           </Box>
-          <Typography mt={2} fontSize={"24px"} variant="h6">
+          <Typography mt={2} fontSize={{ xs: "20px", sm: "24px" }} variant="h6">
             {formatCurrency(product.price)}
           </Typography>
           <Typography mt={2}>{product.description}</Typography>
 
-          <Divider sx={{ mt: 4 }} />
+          <Divider sx={{ mt: { xs: 2, md: 4 } }} />
           <AddToCartSection
             id={product._id}
             title={product.name}
@@ -158,7 +138,7 @@ const SingleProductPage = async ({ params }: SingleProductPageProps) => {
         </Grid>
       </Grid>
 
-      <Divider sx={{ mt: 8 }} />
+      <Divider sx={{ mt: { xs: 4, md: 8 } }} />
 
       <AddReviewForm productId={singleProductId} />
       <ReviewList reviews={product.reviews} />

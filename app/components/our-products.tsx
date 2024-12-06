@@ -72,7 +72,7 @@ const OurProducts = (props: IProps) => {
         sectionTitle="Explore Our Products"
         category="scroll-btn"
       />
-      <Grid container spacing={{xs: 2, sm: 4}} sx={{marginTop: "20px !important"}} columns={{xs: 1, sm: 2, md: 3, lg: 4, xl: 5}}>
+      <Grid container spacing={{ xs: 2, sm: 4 }} sx={{ marginTop: "20px !important" }} columns={{ xs: 1, sm: 2, md: 3, lg: 4 }}>
         {data &&
           data.products &&
           data.products

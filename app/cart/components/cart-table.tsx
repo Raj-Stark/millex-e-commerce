@@ -62,7 +62,7 @@ const CartTable = () => {
   return (
     <TableContainer component={Paper} sx={{ width: "100%", mt: 10 }}>
       <Table
-        sx={{ width: "100%", tableLayout: "fixed" }}
+        sx={{ width: "100%" }}
         aria-label="product table"
       >
         <TableHead>

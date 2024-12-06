@@ -11,16 +11,15 @@ const ProfilePage = () => {
   return (
     <Container maxWidth="xl" sx={{ my: 4 }}>
       <SectionHeader sectionTitle="Profile Page" sectionName="My Account" />
-
-      <Grid mt={6} container columnSpacing={6}>
-        <Grid item xs={4} sx={{ height: "100%" }}>
+      <Grid mt={{ xs: 2, md: 4 }} container spacing={{ xs: 2, md: 4 }} columns={{ xs: 1, md: 2 }}>
+        <Grid item xs={1} md={0.6} sx={{ height: "100%" }} >
           <Paper sx={{ height: "100%", padding: 2 }}>
             <ProfileList />
           </Paper>
         </Grid>
 
-        <Grid item xs={8}>
-          <Paper sx={{ padding: 4 }}>
+        <Grid item xs={1} md={1.4}>
+          <Paper sx={{ padding: { xs: 2, sm: 4 } }}>
             <Typography
               sx={{
                 fontSize: "20px",

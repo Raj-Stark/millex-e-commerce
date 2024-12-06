@@ -14,9 +14,6 @@ const WishListPage = () => {
       maxWidth="xl"
       sx={{
         minHeight: "100vh",
-        "&.MuiContainer-root": {
-          padding: 0,
-        },
       }}
     >
       <Box mt={6}>
