@@ -12,6 +12,7 @@ import {
   List,
   ListItem,
   ListItemText,
+  useMediaQuery,
 } from "@mui/material";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import ShoppingCartRoundedIcon from "@mui/icons-material/ShoppingCartRounded";
@@ -23,12 +24,15 @@ import { useRouter } from "next/navigation";
 import { cartAtom } from "@/commonAtoms/cartAtom";
 import { wishListAtom } from "@/commonAtoms/wishListAtom";
 import SearchBar from "./search-bar";
+import Image from "next/image";
+import appTheme from "@/config/theme";
 
 function ResponsiveAppBar() {
   const user = useAtomValue(userAtom);
   const wishlist = useAtomValue(wishListAtom);
   const cart = useAtomValue(cartAtom);
   const router = useRouter();
+  const mathcesMDBreakpoint = useMediaQuery(appTheme.breakpoints.up('md'));
 
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -68,13 +72,16 @@ function ResponsiveAppBar() {
         backgroundColor: "greyScale.white",
         color: "#000",
         height: { xs: "auto", md: "80px" },
+        display: "flex",
+        justifyContent: "center",
       }}
     >
       <Container
         maxWidth="xl"
         sx={{
-          mt: 1,
-          px: {xs: "16px !important", sm: "24px !important"},
+          display: "flex",
+          width: "100%",
+          px: { xs: "16px !important", sm: "24px !important" },
           "&.MuiContainer-root": {
             padding: 0,
           },
@@ -84,29 +91,19 @@ function ResponsiveAppBar() {
           disableGutters
           sx={{
             display: "flex",
+            width: "100%",
             justifyContent: "space-between",
             alignItems: "center",
           }}
         >
-          <Typography
-            onClick={() => router.push("/")}
-            variant="h6"
-            noWrap
-            component="a"
-            sx={{
-              mr: 2,
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-              display: { xs: "flex", md: "block" },
-            }}
-          >
-            LOGO
-          </Typography>
+          <Image
+            src="/assets/logo.svg"
+            alt="logo"
+            width={mathcesMDBreakpoint ? 64 : 40}
+            height={mathcesMDBreakpoint ? 64 : 40}
+          />
 
-          <Box sx={{ flexGrow: 1}}>
+          <Box sx={{ flexGrow: 1 }}>
             <SearchBar />
           </Box>
 
