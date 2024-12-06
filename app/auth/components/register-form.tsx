@@ -1,7 +1,7 @@
 "use client";
 
 import CommonButton from "@/components/button";
-import { Input, Stack, Typography } from "@mui/material";
+import { Input, Stack, Typography, useMediaQuery } from "@mui/material";
 import React from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
@@ -10,6 +10,8 @@ import { toast } from "react-toastify";
 import axios, { AxiosError } from "axios";
 import { useSetAtom } from "jotai";
 import { userAtom } from "@/commonAtoms/userAtom";
+import { useTheme } from "@emotion/react";
+import appTheme from "@/config/theme";
 
 interface FormData {
   name?: string;
@@ -24,6 +26,10 @@ interface Props {
 const RegisterForm = ({ isLogin }: Props) => {
   const router = useRouter();
   const setUser = useSetAtom(userAtom);
+
+  const screenSizeGreatherThanSM = useMediaQuery(appTheme.breakpoints.up('sm'));
+
+  console.log("screen size", screenSizeGreatherThanSM);
 
   const {
     control,
@@ -156,9 +162,15 @@ const RegisterForm = ({ isLogin }: Props) => {
       </Stack>
 
       <CommonButton
+        size={(() => {
+          if (screenSizeGreatherThanSM) {
+            return "large"
+          }
+          return "small"
+        })()}
         type="submit"
         disabled={isPending}
-        sx={{ width: "100%", mt: "40px", py: 1.6 }}
+        sx={{ width: "100%", mt: { xs: "24px", sm: "40px" } }}
       >
         <Typography sx={{ fontSize: "16px", textTransform: "capitalize" }}>
           {isPending ? "Loading..." : !isLogin ? "Create Account" : "Log In"}

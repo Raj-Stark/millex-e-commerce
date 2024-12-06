@@ -105,8 +105,8 @@ const UserDetailsForm = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Grid container columnSpacing={8} rowSpacing={4}>
-        <Grid item xs={6}>
+      <Grid container columns={{ xs: 1, lg: 2 }} columnSpacing={8} rowSpacing={4}>
+        <Grid item xs={1}>
           <Controller
             name="name"
             control={control}
@@ -135,7 +135,7 @@ const UserDetailsForm = () => {
           />
         </Grid>
 
-        <Grid item xs={6}>
+        <Grid item xs={1}>
           <Controller
             name="email"
             control={control}
@@ -166,14 +166,13 @@ const UserDetailsForm = () => {
 
         {["street", "city", "state", "zip", "country", "phone"].map(
           (fieldName) => (
-            <Grid item xs={6} key={fieldName}>
+            <Grid item xs={1} key={fieldName}>
               <Controller
                 name={fieldName as keyof FormData}
                 control={control}
                 rules={{
-                  required: `${
-                    fieldName.charAt(0).toUpperCase() + fieldName.slice(1)
-                  } is required`,
+                  required: `${fieldName.charAt(0).toUpperCase() + fieldName.slice(1)
+                    } is required`,
                 }}
                 render={({ field }) => (
                   <>

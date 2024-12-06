@@ -11,21 +11,21 @@ const FormBox = () => {
     <Paper
       component={"article"}
       sx={{
-        width: "400px",
+        maxWidth: "400px",
         padding: 4,
       }}
     >
       <Stack spacing={1}>
-        <Typography sx={{ fontSize: "36px", fontWeight: "medium" }}>
+        <Typography sx={{ fontSize: { xs: '24px', sm: '36px' }, fontWeight: "medium" }}>
           {!isLogin ? "Create an account" : "Login To Exclusive"}
         </Typography>
-        <Typography sx={{ fontSize: "16px" }}>
+        <Typography sx={{ fontSize: { xs: '12px', sm: '16px' }, fontWeight: "medium" }}>
           Enter your details below
         </Typography>
         <RegisterForm isLogin={isLogin} />
 
         {!isLogin ? (
-          <Typography sx={{ textAlign: "center", mt: "40px" }}>
+          <Typography fontSize={{ xs: '12px', sm: '16px' }} sx={{ textAlign: "center", mt: "40px" }}>
             Already have an account ?{" "}
             <Link
               onClick={() => setIsLogin(true)}
@@ -41,6 +41,7 @@ const FormBox = () => {
           </Typography>
         ) : (
           <Typography
+            fontSize={{ xs: '12px', sm: '16px' }}
             onClick={() => setIsLogin(false)}
             sx={{
               ml: 1,

@@ -65,7 +65,6 @@ const AddReviewForm = ({ productId }: Props) => {
     <Box mt={10}>
       <form
         style={{
-          width: "70%",
           display: "flex",
           alignItems: "end",
           justifyContent: "space-between",

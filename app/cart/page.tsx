@@ -15,9 +15,6 @@ const CartPage = () => {
       maxWidth="xl"
       sx={{
         minHeight: "100vh",
-        "&.MuiContainer-root": {
-          padding: 0,
-        },
       }}
     >
       {cart.length !== 0 ? (
