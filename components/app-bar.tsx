@@ -96,12 +96,14 @@ function ResponsiveAppBar() {
             alignItems: "center",
           }}
         >
-          <Image
-            src="/assets/logo.svg"
-            alt="logo"
-            width={mathcesMDBreakpoint ? 64 : 40}
-            height={mathcesMDBreakpoint ? 64 : 40}
-          />
+          <a href="/">
+            <Image
+              src="/assets/logo.svg"
+              alt="logo"
+              width={mathcesMDBreakpoint ? 64 : 40}
+              height={mathcesMDBreakpoint ? 64 : 40}
+            />
+          </a>
 
           <Box sx={{ flexGrow: 1 }}>
             <SearchBar />
