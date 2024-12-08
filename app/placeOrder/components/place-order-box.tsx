@@ -81,7 +81,7 @@ const PlaceOrderBox = () => {
   };
 
   return (
-    <Box sx={{ maxWidth: "400px" }} mt={8}>
+    <Box mt={8}>
       <Typography fontSize={"20px"} fontWeight={"medium"}>
         Cart Total:
       </Typography>

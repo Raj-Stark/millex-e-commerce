@@ -44,16 +44,16 @@ const CategoryPage = async ({ params }: CategoryPageProps) => {
   }
 
   return (
-    <Container maxWidth="xl" sx={{ my: 4, height: "100vh" }}>
+    <Container maxWidth="xl" sx={{ my: 4, minHeight: "100vh" }}>
       <SectionHeader
         sectionTitle={data[0]?.category.name ?? ""}
         sectionName="Item By Category"
       />
 
-      <Grid container spacing={3}>
+      <Grid container spacing={3} columns={{ xs: 1, sm: 2, md: 3, lg: 4 }}>
         {data?.length > 0 ? (
           data?.map((product) => (
-            <Grid item xs={3} key={product._id}>
+            <Grid item xs={1} key={product._id}>
               <ProductCard
                 id={product._id}
                 title={product.name}

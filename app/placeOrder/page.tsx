@@ -11,12 +11,12 @@ const PlaceOrderPage = () => {
         <SectionHeader sectionName="Order Page" />
       </Box>
 
-      <Grid container mt={2} mb={4} spacing={4}>
-        <Grid item xs={7}>
+      <Grid container flexDirection={{xs: "column", md: "row"}} mt={2} mb={4} spacing={4} columns={{xs: 1, md: 2}}>
+        <Grid item xs={1}>
           <OrderItems />
         </Grid>
 
-        <Grid item xs={5}>
+        <Grid item xs={1}>
           <UserDetailList />
         </Grid>
       </Grid>

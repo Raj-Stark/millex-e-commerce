@@ -29,8 +29,6 @@ const RegisterForm = ({ isLogin }: Props) => {
 
   const screenSizeGreatherThanSM = useMediaQuery(appTheme.breakpoints.up('sm'));
 
-  console.log("screen size", screenSizeGreatherThanSM);
-
   const {
     control,
     handleSubmit,
