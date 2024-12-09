@@ -16,13 +16,6 @@ import {
 import Image from "next/image";
 import React from "react";
 
-const columnWidths = {
-  product: "35%",
-  price: "15%",
-  quantity: "10%",
-  total: "15%",
-  status: "15%",
-};
 
 const OrderListTable = ({ orderData = [] }) => {
   if (!orderData || orderData.length === 0) {
@@ -69,7 +62,7 @@ const OrderListTable = ({ orderData = [] }) => {
               bgcolor: "#f9f9f9",
             }}
           >
-            <Box sx={{ display: "flex", gap: 3, alignItems: "center" }}>
+            <Box sx={{ display: "flex", gap: { xs: 1, md: 3 }, alignItems: { xs: 'flex-start', md: "center" }, flexDirection: { xs: "column", md: 'row' } }}>
               <Typography variant="h5M" color="text.secondary">
                 {formatDate(order.createdAt)}
               </Typography>
@@ -86,19 +79,35 @@ const OrderListTable = ({ orderData = [] }) => {
 
           {/* Order Items */}
           <TableContainer>
-            <Table size="small">
+            <Table
+              sx={{
+                width: "100%", display: { xs: 'block', md: 'table' },
+                '& tr': {
+                  display: { xs: 'flex', md: 'table-row' }, flexDirection: "column", borderBottom: { xs: '1px solid rgba(224, 224, 224, 1)' },
+                },
+                '& td': {
+                  display: { xs: 'flex', md: 'table-cell', flexDirection: 'column', borderBottom: 'none' },
+                },
+                '& thead': {
+                  display: { xs: 'none', md: 'table-header-group' }, flexDirection: 'column',
+                },
+                '& tbody': {
+                  display: { xs: 'block', md: 'table-row-group' },
+                },
+              }}
+              size="small">
               <TableHead>
                 <TableRow>
-                  <TableCell sx={{ width: columnWidths.product }}>
+                  <TableCell>
                     Product
                   </TableCell>
-                  <TableCell sx={{ width: columnWidths.price }}>
+                  <TableCell>
                     Price
                   </TableCell>
-                  <TableCell sx={{ width: columnWidths.quantity }}>
+                  <TableCell>
                     Qty
                   </TableCell>
-                  <TableCell sx={{ width: columnWidths.total }}>
+                  <TableCell align="right">
                     Total
                   </TableCell>
                 </TableRow>
@@ -107,7 +116,7 @@ const OrderListTable = ({ orderData = [] }) => {
                 {order.orderItems.map((item: any) => (
                   <TableRow key={item._id}>
                     <TableCell>
-                      <Box display="flex" alignItems="center">
+                      <Box display="flex" flexDirection={{ xs: 'column', md: 'row' }} alignItems={{ xs: 'auto', md: 'center' }}>
                         <Image
                           src={item.image}
                           height={60}
@@ -115,18 +124,30 @@ const OrderListTable = ({ orderData = [] }) => {
                           alt={item.name}
                           style={{ objectFit: "cover", borderRadius: 4 }}
                         />
-                        <Typography
-                          variant="body2"
-                          sx={{ ml: 1.5, fontWeight: 500 }}
-                        >
+                        <Typography sx={{ ml: { xs: 0, md: 1.5 }, mt: { xs: 2, md: 0 }, fontSize: "16px", fontWeight: 500 }}>
                           {item.name}
                         </Typography>
                       </Box>
                     </TableCell>
-                    <TableCell>{formatCurrency(item.price)}</TableCell>
-                    <TableCell>{item.amount}</TableCell>
                     <TableCell>
-                      {formatCurrency(item.price * item.amount)}
+                      <Box display={"flex"} justifyContent={"space-between"}>
+                        <Typography display={{ xs: 'block', md: 'none' }}>Price: </Typography>
+                        <Typography>{formatCurrency(item.price)}</Typography>
+                      </Box>
+                    </TableCell>
+                    <TableCell>
+                      <Box display={"flex"} alignItems={'center'} justifyContent={{ xs: 'space-between', md: 'flex-start' }}>
+                        <Typography display={{ xs: 'block', md: 'none' }}>Quantity: </Typography>
+                        <Typography>
+                          {item.amount}
+                        </Typography>
+                      </Box>
+                    </TableCell>
+                    <TableCell>
+                      <Box display={"flex"} justifyContent={{ xs: 'space-between', md: 'flex-end' }}>
+                        <Typography display={{ xs: 'block', md: 'none' }}>Subtotal: </Typography>
+                        <Typography>{formatCurrency(item.price * item.amount)}</Typography>
+                      </Box>
                     </TableCell>
                   </TableRow>
                 ))}
@@ -144,8 +165,9 @@ const OrderListTable = ({ orderData = [] }) => {
               gap: 3,
               bgcolor: "#f9f9f9",
             }}
+            flexDirection={{ xs: 'column', md: 'row' }}
           >
-            <Box display={"flex"} gap={2}>
+            <Box display={"flex"} gap={2} flexDirection={{ xs: 'column', md: 'row' }}>
               <Typography variant="body1" color="text.secondary">
                 Subtotal: {formatCurrency(order.subtotal)}
               </Typography>

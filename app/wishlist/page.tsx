@@ -20,10 +20,10 @@ const WishListPage = () => {
         <SectionHeader sectionName="Wishlist" />
       </Box>
 
-      <Grid container spacing={3}>
+      <Grid sx={{marginBottom: "50px"}} container spacing={{ xs: 2, sm: 4 }} columns={{ xs: 1, sm: 2, md: 3, lg: 4 }}>
         {wishlist?.length > 0 ? (
           wishlist?.map((product) => (
-            <Grid item xs={3} key={product.id}>
+            <Grid item xs={1} key={product.id}>
               <ProductCard
                 id={product.id}
                 title={product.title}
@@ -50,6 +50,6 @@ const WishListPage = () => {
       </Grid>
     </Container>
   );
-};
+}
 
 export default WishListPage;

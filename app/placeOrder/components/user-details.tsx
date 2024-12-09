@@ -110,6 +110,7 @@ const UserDetailsList = () => {
       <Box px={2} py={2}>
         <CommonButton
           type="submit"
+          size="small"
           sx={{ width: "100%" }}
           onClick={() => router.push("/profile")}
         >
@@ -118,8 +119,6 @@ const UserDetailsList = () => {
             sx={{
               color: "#fff",
               textTransform: "capitalize",
-              px: 2.8,
-              py: 0.8,
             }}
           >
             Update Details
