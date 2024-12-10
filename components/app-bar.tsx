@@ -44,11 +44,15 @@ function ResponsiveAppBar() {
     <Box sx={{ width: 250 }}>
       <List>
         <ListItem button onClick={() => router.push("/wishlist")}>
-          <FavoriteBorderOutlinedIcon />
+          <Badge badgeContent={wishlist.length} color="secondary">
+            <FavoriteBorderOutlinedIcon />
+          </Badge>
           <ListItemText primary="Wishlist" sx={{ ml: 2 }} />
         </ListItem>
         <ListItem button onClick={() => router.push("/cart")}>
-          <ShoppingCartRoundedIcon />
+          <Badge badgeContent={cart.length} color="secondary">
+            <ShoppingCartRoundedIcon />
+          </Badge>
           <ListItemText primary="Cart" sx={{ ml: 2 }} />
         </ListItem>
         <ListItem
