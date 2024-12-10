@@ -10,7 +10,6 @@ import { toast } from "react-toastify";
 import axios, { AxiosError } from "axios";
 import { useSetAtom } from "jotai";
 import { userAtom } from "@/commonAtoms/userAtom";
-import { useTheme } from "@emotion/react";
 import appTheme from "@/config/theme";
 
 interface FormData {
@@ -93,7 +92,17 @@ const RegisterForm = ({ isLogin }: Props) => {
               rules={{ required: !isLogin && "Name is required" }}
               render={({ field, fieldState: { error } }) => (
                 <>
-                  <Input placeholder="Name" {...field} error={!!error} />
+                  <Input
+                    sx={{
+                      '& .MuiInputBase-input::placeholder': {
+                        color: { xs: 'greyScale.shade400', md: 'rgba(0, 0, 0, 0.54)' },
+                        opacity: 1,
+                      },
+                      color: {
+                        xs: 'greyScale.shade100', md: "black"
+                      }
+                    }}
+                    placeholder="Name" {...field} error={!!error} />
                   {errors.name && (
                     <Typography
                       component={"span"}
@@ -120,7 +129,17 @@ const RegisterForm = ({ isLogin }: Props) => {
           }}
           render={({ field, fieldState: { error } }) => (
             <>
-              <Input placeholder="Email" {...field} error={!!error} />
+              <Input
+                sx={{
+                  '& .MuiInputBase-input::placeholder': {
+                    color: { xs: 'greyScale.shade400', md: 'rgba(0, 0, 0, 0.54)' }, // Change placeholder color here
+                    opacity: 1, // Ensure it doesn't inherit opacity
+                  },
+                  color: {
+                    xs: 'greyScale.shade100', md: "black"
+                  }
+                }}
+                placeholder="Email" {...field} error={!!error} />
 
               {errors.email && (
                 <Typography component={"span"} sx={{ color: "secondary.main" }}>
@@ -144,6 +163,15 @@ const RegisterForm = ({ isLogin }: Props) => {
           render={({ field, fieldState: { error } }) => (
             <>
               <Input
+                sx={{
+                  '& .MuiInputBase-input::placeholder': {
+                    color: { xs: 'greyScale.shade400', md: 'rgba(0, 0, 0, 0.54)' }, // Change placeholder color here
+                    opacity: 1, // Ensure it doesn't inherit opacity
+                  },
+                  color: {
+                    xs: 'greyScale.shade100', md: "black"
+                  }
+                }}
                 placeholder="Password"
                 type="password"
                 {...field}
@@ -170,8 +198,8 @@ const RegisterForm = ({ isLogin }: Props) => {
         disabled={isPending}
         sx={{ width: "100%", mt: { xs: "24px", sm: "40px" } }}
       >
-        <Typography sx={{ fontSize: "16px", textTransform: "capitalize" }}>
-          {isPending ? "Loading..." : !isLogin ? "Create Account" : "Log In"}
+        <Typography sx={{ fontSize: "12px", fontWeight: "bold", textTransform: "capitalize" }}>
+          {isPending ? "Loading..." : !isLogin ? "CREATE ACCOUNT" : "Log In"}
         </Typography>
       </CommonButton>
     </form>

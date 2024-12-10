@@ -114,8 +114,8 @@ const OrderListTable = ({ orderData = [] }) => {
               </TableHead>
               <TableBody>
                 {order.orderItems.map((item: any) => (
-                  <TableRow key={item._id}>
-                    <TableCell>
+                  <TableRow sx={{ py: { xs: "10px", md: "0px" } }} key={item._id}>
+                    <TableCell sx={{ py: { xs: "10px", md: "6px" } }}>
                       <Box display="flex" flexDirection={{ xs: 'column', md: 'row' }} alignItems={{ xs: 'auto', md: 'center' }}>
                         <Image
                           src={item.image}
@@ -129,24 +129,24 @@ const OrderListTable = ({ orderData = [] }) => {
                         </Typography>
                       </Box>
                     </TableCell>
-                    <TableCell>
-                      <Box display={"flex"} justifyContent={"space-between"}>
-                        <Typography display={{ xs: 'block', md: 'none' }}>Price: </Typography>
-                        <Typography>{formatCurrency(item.price)}</Typography>
+                    <TableCell sx={{ py: { xs: "4px", md: "6px" } }}>
+                      <Box display={"flex"} alignItems={'center'} paddingBottom={{ xs: "4px", md: 0 }} borderBottom={{ xs: '1px solid rgba(224, 224, 224, 0.7)', md: 'none' }} justifyContent={"space-between"}>
+                        <Typography fontSize={{ xs: "14px", md: "16px" }} fontWeight={500} display={{ xs: 'block', md: 'none' }}>Price: </Typography>
+                        <Typography fontSize={{ xs: "14px", md: "16px" }}>{formatCurrency(item.price)}</Typography>
                       </Box>
                     </TableCell>
-                    <TableCell>
-                      <Box display={"flex"} alignItems={'center'} justifyContent={{ xs: 'space-between', md: 'flex-start' }}>
-                        <Typography display={{ xs: 'block', md: 'none' }}>Quantity: </Typography>
-                        <Typography>
+                    <TableCell sx={{ py: { xs: "4px", md: "6px" } }}>
+                      <Box display={"flex"} alignItems={'center'} paddingBottom={{ xs: "4px", md: 0 }} borderBottom={{ xs: '1px solid rgba(224, 224, 224, 0.7)', md: 'none' }} justifyContent={{ xs: 'space-between', md: 'flex-start' }}>
+                        <Typography fontSize={{ xs: "14px", md: "16px" }} fontWeight={500} display={{ xs: 'block', md: 'none' }}>Quantity: </Typography>
+                        <Typography fontSize={{ xs: "14px", md: "16px" }}>
                           {item.amount}
                         </Typography>
                       </Box>
                     </TableCell>
-                    <TableCell>
-                      <Box display={"flex"} justifyContent={{ xs: 'space-between', md: 'flex-end' }}>
-                        <Typography display={{ xs: 'block', md: 'none' }}>Subtotal: </Typography>
-                        <Typography>{formatCurrency(item.price * item.amount)}</Typography>
+                    <TableCell sx={{ py: { xs: "4px", md: "6px" } }}>
+                      <Box display={"flex"} alignItems={'center'} paddingBottom={{ xs: "4px", md: 0 }} borderBottom={{ xs: '1px solid rgba(224, 224, 224, 0.7)', md: 'none' }} justifyContent={{ xs: 'space-between', md: 'flex-end' }}>
+                        <Typography fontSize={{ xs: "14px", md: "16px" }} fontWeight={500} display={{ xs: 'block', md: 'none' }}>Subtotal: </Typography>
+                        <Typography fontSize={{ xs: "14px", md: "16px" }}>{formatCurrency(item.price * item.amount)}</Typography>
                       </Box>
                     </TableCell>
                   </TableRow>
@@ -162,26 +162,40 @@ const OrderListTable = ({ orderData = [] }) => {
               justifyContent: "space-between",
               borderTop: "1px solid #eee",
               p: 2,
-              gap: 3,
+              gap: {xs: 1, md: 3},
               bgcolor: "#f9f9f9",
             }}
             flexDirection={{ xs: 'column', md: 'row' }}
           >
-            <Box display={"flex"} gap={2} flexDirection={{ xs: 'column', md: 'row' }}>
-              <Typography variant="body1" color="text.secondary">
-                Subtotal: {formatCurrency(order.subtotal)}
-              </Typography>
-              <Typography variant="body1" color="text.secondary">
-                Shipping: {formatCurrency(order.shippingFee)}
-              </Typography>
-              <Typography variant="body1" color="text.secondary">
-                Tax: {formatCurrency(order.tax)}
-              </Typography>
+            <Box display={"flex"} gap={{ xs: 1, md: 2 }} flexDirection={{ xs: 'column', md: 'row' }}>
+              <Box display="flex" justifyContent={{ xs: 'space-between', md: 'flex-start' }} alignItems={"center"} >
+                <Typography variant="body1" fontSize={{xs: "14px", md: "16px"}} color="text.secondary">Subtotal:&nbsp;</Typography>
+                <Typography variant="body1" fontSize={{xs: "14px", md: "16px"}} color="text.secondary">
+                  {formatCurrency(order.subtotal)}
+                </Typography>
+
+              </Box>
+              <Box display="flex" justifyContent={{ xs: 'space-between', md: 'flex-start' }} alignItems={"center"} >
+                <Typography variant="body1" fontSize={{xs: "14px", md: "16px"}} color="text.secondary">Tax:&nbsp;</Typography>
+                <Typography variant="body1" fontSize={{xs: "14px", md: "16px"}} color="text.secondary">
+                  {formatCurrency(order.tax)}
+                </Typography>
+
+              </Box>
+              <Box display="flex" justifyContent={{ xs: 'space-between', md: 'flex-start' }} alignItems={"center"} >
+                <Typography variant="body1" fontSize={{xs: "14px", md: "16px"}} color="text.secondary">Shipping:&nbsp;</Typography>
+                <Typography variant="body1" fontSize={{xs: "14px", md: "16px"}} color="text.secondary">
+                  {formatCurrency(order.shippingFee)}
+                </Typography>
+              </Box>
             </Box>
 
-            <Typography variant="body1" textAlign={"left"} fontWeight="medium">
-              Total: {formatCurrency(order.total)}
-            </Typography>
+            <Box display="flex" justifyContent={{ xs: 'space-between', md: 'flex-start' }} alignItems={"center"} >
+                <Typography variant="body1" fontSize={{xs: "14px", md: "16px"}} textAlign={"left"} fontWeight="medium">Total:&nbsp;&nbsp;</Typography>
+                <Typography variant="body1" fontSize={{xs: "14px", md: "16px"}} textAlign={"left"} fontWeight="medium">
+                {formatCurrency(order.total)}
+                </Typography>
+              </Box>
           </Box>
         </Paper>
       ))}

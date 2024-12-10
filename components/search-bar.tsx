@@ -1,13 +1,11 @@
-import { formatCurrency } from "@/utils/format-currency";
-import { Box, Input, Typography, CircularProgress } from "@mui/material";
+import { Box, Input } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { useRouter } from "next/navigation";
 import { useDebounce } from "@uidotdev/usehooks";
 import React from "react";
 import { useForm } from "react-hook-form";
+import SearchResults from "./search-results";
 
-interface SearchBarProps { }
 
 const SearchBar = () => {
   const { register, watch } = useForm({
@@ -15,9 +13,6 @@ const SearchBar = () => {
       search: "",
     },
   });
-
-  const router = useRouter();
-
   const searchValue = watch("search");
   const debouncedSearchValue = useDebounce(searchValue, 300);
 
@@ -40,113 +35,50 @@ const SearchBar = () => {
   });
 
   return (
-    <Box sx={{ display: "flex", position: "relative", flexGrow: 1, justifyContent: "center" }}>
-      <Input
-        placeholder="What are you looking for?"
-        type="text"
-        {...register("search")}
-        sx={{
-          width: "100%",
-          maxWidth: "800px",
-          border: "1px solid #000",
-          borderRadius: "3px",
-          paddingX: 1,
-          marginRight: { xs: "0px", md: "20px" },
-          marginLeft: { xs: "20px" },
-          height: { xs: "35px", lg: "40px" },
-          fontSize: { xs: "12px", sm: "14px" },
-          "&::focus": {
-            outline: "none",
-          },
-          "&::after": {
-            border: "none",
-          },
-          "&:hover:not(.Mui-disabled):before": {
-            border: "none",
-          },
-          "&::before": {
-            borderBottom: "none",
-          },
-        }}
-      />
-
-      {debouncedSearchValue && (
-        <Box
+    <Box sx={{ display: "flex", flexGrow: 1, justifyContent: "center" }}>
+      <Box sx={{
+        width: "100%",
+        maxWidth: "800px",
+        position: { xs: 'static', md: 'relative' },
+        display: "flex",
+      }}>
+        <Input
+          placeholder="What are you looking for?"
+          type="text"
+          {...register("search")}
           sx={{
-            position: "absolute",
-            top: "45px",
-            left: "120px",
-            width: "800px",
-            maxHeight: "400px",
-            overflowY: "auto",
-            backgroundColor: "white",
-            borderRadius: "5px",
-            boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-            zIndex: 1000,
-            border: "1px solid #eaeaea",
+            border: "1px solid #000",
+            flexGrow: 1,
+            borderRadius: "3px",
+            paddingX: 1,
+            marginRight: { xs: "0px", md: "20px" },
+            marginLeft: { xs: "20px" },
+            height: { xs: "35px", lg: "40px" },
+            fontSize: { xs: "12px", sm: "14px" },
+            "&::focus": {
+              outline: "none",
+            },
+            "&::after": {
+              border: "none",
+            },
+            "&:hover:not(.Mui-disabled):before": {
+              border: "none",
+            },
+            "&::before": {
+              borderBottom: "none",
+            },
           }}
-        >
-          {isLoading && (
-            <Box sx={{ p: 2, textAlign: "center" }}>
-              <CircularProgress size={20} />
-            </Box>
-          )}
+        />
 
-          {error && (
-            <Box sx={{ p: 2 }}>
-              <Typography color="error">{error.message}</Typography>
-            </Box>
-          )}
-
-          {data?.msg && debouncedSearchValue && !isLoading && (
-            <Box sx={{ p: 2 }}>
-              <Typography fontSize={"14px"} fontWeight={400}>
-                {data?.msg}
-              </Typography>
-            </Box>
-          )}
-
-          {data?.products &&
-            data.products.map((product: any, index: number) => (
-              <Box
-                key={index}
-                sx={{
-                  p: 2,
-                  borderBottom: "1px solid #eaeaea",
-                  cursor: "pointer",
-                  "&:hover": {
-                    backgroundColor: "#f5f5f5",
-                  },
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 2,
-                }}
-                onClick={() => {
-                  router.push(`/${product._id}`);
-                }}
-              >
-                <Box
-                  component="img"
-                  src={product.image || "/placeholder-image.jpg"}
-                  alt={product.name}
-                  sx={{
-                    width: 50,
-                    height: 50,
-                    objectFit: "cover",
-                    borderRadius: "4px",
-                  }}
-                />
-
-                <Box>
-                  <Typography fontWeight="500">{product.name}</Typography>
-                  <Typography color="text.secondary" fontSize="14px">
-                    {formatCurrency(product.price)}
-                  </Typography>
-                </Box>
-              </Box>
-            ))}
-        </Box>
-      )}
+        {debouncedSearchValue &&
+          <SearchResults
+            isLoading={isLoading}
+            error={error}
+            data={data}
+            debouncedSearchValue={debouncedSearchValue}
+          />
+        }
+      </Box>
     </Box>
   );
 };

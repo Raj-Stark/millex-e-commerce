@@ -13,19 +13,23 @@ const FormBox = () => {
       sx={{
         maxWidth: "400px",
         padding: 4,
+        minWidth: {xs: 0,md: "350px"},
+        backdropFilter: "blur(8px)",
+        mx: 2,
+        backgroundColor: {xs: 'rgba(255,255,255,0.1)', md: "white"},
       }}
     >
       <Stack spacing={1}>
-        <Typography sx={{ fontSize: { xs: '24px', sm: '36px' }, fontWeight: "medium" }}>
+        <Typography color={{xs: 'white', md: 'black'}} sx={{ fontSize: { xs: '24px', sm: '36px' }, fontWeight: "medium" }}>
           {!isLogin ? "Create an account" : "Login To Exclusive"}
         </Typography>
-        <Typography sx={{ fontSize: { xs: '12px', sm: '16px' }, fontWeight: "medium" }}>
+        <Typography color={{xs: 'white', md: 'black'}} sx={{ fontSize: { xs: '12px', sm: '16px' }, fontWeight: "medium" }}>
           Enter your details below
         </Typography>
         <RegisterForm isLogin={isLogin} />
 
         {!isLogin ? (
-          <Typography fontSize={{ xs: '12px', sm: '16px' }} sx={{ textAlign: "center", mt: "40px" }}>
+          <Typography color={{xs: 'white', md: 'black'}} fontSize={{ xs: '12px', sm: '16px' }} sx={{ textAlign: "center", mt: "40px" }}>
             Already have an account ?{" "}
             <Link
               onClick={() => setIsLogin(true)}
