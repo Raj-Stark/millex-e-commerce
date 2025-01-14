@@ -3,12 +3,10 @@ import {
   Container,
   Divider,
   Grid,
-  Paper,
   Typography,
 } from "@mui/material";
 import React from "react";
 import axios from "axios";
-import Image from "next/image";
 import AddToCartSection from "./components/add-to-cart-section";
 import AddReviewForm from "./components/add-review-form";
 import ReviewList from "./components/review-list";
@@ -16,6 +14,14 @@ import { formatCurrency } from "@/utils/format-currency";
 import { ProductType } from "@/types/product-types";
 import { Review } from "@/types/review-types";
 import ProductRatings from "./components/product-ratings";
+import {Marked} from "marked"
+import ImageSlideShow from "./components/image-slide-show";
+
+const marked = new Marked({
+  gfm: true,
+  breaks: true,
+});
+
 
 interface SingleProductPageProps {
   params: {
@@ -84,14 +90,7 @@ const SingleProductPage = async ({ params }: SingleProductPageProps) => {
           item
           xs={1}
         >
-          <Paper sx={{ position: "relative", height: { xs: "200px", sm: "300px", md: '400px', lg: "600px" }, width: "100%" }}>
-            <Image
-              fill={true}
-              alt="product-image"
-              src={product.image}
-              style={{ objectFit: "cover" }}
-            />
-          </Paper>
+          <ImageSlideShow images={product.images} />
         </Grid>
         <Grid
           item
@@ -123,13 +122,20 @@ const SingleProductPage = async ({ params }: SingleProductPageProps) => {
           <Typography mt={2} fontSize={{ xs: "20px", sm: "24px" }} variant="h6">
             {formatCurrency(product.price)}
           </Typography>
-          <Typography mt={2}>{product.description}</Typography>
+          <Box sx={{
+            "& ul":{
+              marginY: 0
+            },
+            "& h4": {
+              marginY: 1
+            }
+          }} mt={2} dangerouslySetInnerHTML={{__html: marked.parse(product.description)}}/>
 
           <Divider sx={{ mt: { xs: 2, md: 4 } }} />
           <AddToCartSection
             id={product._id}
             title={product.name}
-            image={product.image}
+            image={product.images[0]}
             price={product.price}
             inventory={product.inventory}
             averageRating={product.averageRating}

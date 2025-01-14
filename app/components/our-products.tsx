@@ -82,7 +82,7 @@ const OurProducts = (props: IProps) => {
                 <ProductCard
                   id={product._id}
                   title={product.name}
-                  image={product.image}
+                  image={product.images[0]}
                   price={product.price}
                   inventory={product.inventory}
                   averageRating={product.averageRating}
