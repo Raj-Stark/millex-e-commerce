@@ -68,7 +68,7 @@ const ProductCard = ({
           <Grid>
             <Box display={"flex"} alignItems={"center"} justifyContent={"space-between"} mt={1} gap={1}>
               <Typography color={"#DB4444"} fontSize={"16px"} fontWeight={"500"}>
-                ${price}
+              ₹ {price}
               </Typography>
               <Box display={"flex"} alignItems={"center"} gap={1}>
                 <Rating value={averageRating} readOnly />
