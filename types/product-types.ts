@@ -15,4 +15,3 @@ export interface ProductType {
   createdAt: string;
   updatedAt: string;
 }
-

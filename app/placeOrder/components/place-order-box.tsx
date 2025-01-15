@@ -40,7 +40,7 @@ const PlaceOrderBox = () => {
         },
         {
           withCredentials: true,
-        }
+        },
       );
       return response.data;
     },

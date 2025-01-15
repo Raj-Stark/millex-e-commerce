@@ -52,7 +52,7 @@ const UserDetailsList = () => {
   useEffect(() => {
     if (userData) {
       const isComplete = userDetails.every(
-        (detail) => detail.value && detail.value.trim() !== ""
+        (detail) => detail.value && detail.value.trim() !== "",
       );
       setIsCompleteDetail(isComplete);
     }

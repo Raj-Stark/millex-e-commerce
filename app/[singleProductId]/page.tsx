@@ -1,10 +1,4 @@
-import {
-  Box,
-  Container,
-  Divider,
-  Grid,
-  Typography,
-} from "@mui/material";
+import { Box, Container, Divider, Grid, Typography } from "@mui/material";
 import React from "react";
 import axios from "axios";
 import AddToCartSection from "./components/add-to-cart-section";
@@ -14,14 +8,13 @@ import { formatCurrency } from "@/utils/format-currency";
 import { ProductType } from "@/types/product-types";
 import { Review } from "@/types/review-types";
 import ProductRatings from "./components/product-ratings";
-import {Marked} from "marked"
+import { Marked } from "marked";
 import ImageSlideShow from "./components/image-slide-show";
 
 const marked = new Marked({
   gfm: true,
   breaks: true,
 });
-
 
 interface SingleProductPageProps {
   params: {
@@ -34,11 +27,11 @@ export interface SingleProductType extends ProductType {
 }
 
 async function getProductById(
-  singleProductId: string
+  singleProductId: string,
 ): Promise<SingleProductType | null> {
   try {
     const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_LOCAL_URL}product/${singleProductId}`
+      `${process.env.NEXT_PUBLIC_LOCAL_URL}product/${singleProductId}`,
     );
     return response.data.product;
   } catch (error) {
@@ -76,7 +69,7 @@ const SingleProductPage = async ({ params }: SingleProductPageProps) => {
         minHeight: "100vh",
         display: "flex",
         flexDirection: "column",
-        marginBottom: 10
+        marginBottom: 10,
       }}
     >
       <Grid
@@ -86,21 +79,19 @@ const SingleProductPage = async ({ params }: SingleProductPageProps) => {
         mt={{ xs: 4, md: 12 }}
         rowSpacing={{ xs: 2, lg: 0 }}
       >
-        <Grid
-          item
-          xs={1}
-        >
+        <Grid item xs={1}>
           <ImageSlideShow images={product.images} />
         </Grid>
-        <Grid
-          item
-          xs={1}
-          lg={1.5}
-        >
+        <Grid item xs={1} lg={1.5}>
           <Typography sx={{ fontWeight: "bold" }} fontSize={{ xs: 20, sm: 24 }}>
             {product.name}
           </Typography>
-          <Box display={"flex"} justifyContent={"flex-start"} mt={2} alignItems={"center"}>
+          <Box
+            display={"flex"}
+            justifyContent={"flex-start"}
+            mt={2}
+            alignItems={"center"}
+          >
             <ProductRatings rating={product.averageRating} />
             <Typography
               fontSize={{ xs: 12, sm: 16 }}
@@ -114,7 +105,10 @@ const SingleProductPage = async ({ params }: SingleProductPageProps) => {
             />
 
             <Typography
-              sx={{ color: product.inventory !== 0 ? "#00FF66" : "#F43F5E", fontSize: { xs: 12, sm: 16 } }}
+              sx={{
+                color: product.inventory !== 0 ? "#00FF66" : "#F43F5E",
+                fontSize: { xs: 12, sm: 16 },
+              }}
             >
               {product.inventory === 0 ? "Out Of Stock" : "In Stock"}
             </Typography>
@@ -122,14 +116,20 @@ const SingleProductPage = async ({ params }: SingleProductPageProps) => {
           <Typography mt={2} fontSize={{ xs: "20px", sm: "24px" }} variant="h6">
             {formatCurrency(product.price)}
           </Typography>
-          <Box sx={{
-            "& ul":{
-              marginY: 0
-            },
-            "& h4": {
-              marginY: 1
-            }
-          }} mt={2} dangerouslySetInnerHTML={{__html: marked.parse(product.description)}}/>
+          <Box
+            sx={{
+              "& ul": {
+                marginY: 0,
+              },
+              "& h4": {
+                marginY: 1,
+              },
+            }}
+            mt={2}
+            dangerouslySetInnerHTML={{
+              __html: marked.parse(product.description),
+            }}
+          />
 
           <Divider sx={{ mt: { xs: 2, md: 4 } }} />
           <AddToCartSection

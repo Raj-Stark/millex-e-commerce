@@ -113,7 +113,12 @@ const AddToCartSection = ({
   };
 
   return (
-    <Stack direction={"column"} spacing={2} mt={4} maxWidth={{ xs: '500px', md: "300px" }}>
+    <Stack
+      direction={"column"}
+      spacing={2}
+      mt={4}
+      maxWidth={{ xs: "500px", md: "300px" }}
+    >
       <Box display={"flex"} justifyContent={"space-between"}>
         <Box
           border={"2px solid #000"}

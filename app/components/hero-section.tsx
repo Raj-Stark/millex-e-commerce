@@ -24,9 +24,9 @@ const HeroSection = () => {
       maxWidth="xl"
       sx={{
         minHeight: "424px",
-        mt: {xs: 0,xl: "48px"},
+        mt: { xs: 0, xl: "48px" },
         color: "#000",
-        borderRadius: {xs: "0px", xl: "8px"},
+        borderRadius: { xs: "0px", xl: "8px" },
         overflow: "hidden",
         px: 0,
         "&.MuiContainer-root": {

@@ -34,7 +34,7 @@ const UserPasswordUpdateForm = () => {
           oldPassword: data.current,
           newPassword: data.new,
         },
-        { withCredentials: true }
+        { withCredentials: true },
       );
     },
 

@@ -33,7 +33,18 @@ const ProductCard = ({
   inventory,
 }: ProductCardProps) => {
   return (
-    <Card sx={{ minWidth: 250, maxWidth: 350, position: "relative", height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between",width: "100%" }}>
+    <Card
+      sx={{
+        minWidth: 250,
+        maxWidth: 350,
+        position: "relative",
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+        width: "100%",
+      }}
+    >
       <Box>
         <WishListBtn
           id={id}
@@ -53,22 +64,32 @@ const ProductCard = ({
             sx={{ objectFit: "cover" }}
           />
         </Link>
-        <CardContent sx={{paddingBottom: "0px !important"}}>
+        <CardContent sx={{ paddingBottom: "0px !important" }}>
           <Typography
-              variant="h6"          
-              //  sx={{ height: "50px" }}
-              >
-                {title}
+            variant="h6"
+            //  sx={{ height: "50px" }}
+          >
+            {title}
           </Typography>
         </CardContent>
       </Box>
-      
+
       <Box>
         <CardContent>
           <Grid>
-            <Box display={"flex"} alignItems={"center"} justifyContent={"space-between"} mt={1} gap={1}>
-              <Typography color={"#DB4444"} fontSize={"16px"} fontWeight={"500"}>
-              ₹ {price}
+            <Box
+              display={"flex"}
+              alignItems={"center"}
+              justifyContent={"space-between"}
+              mt={1}
+              gap={1}
+            >
+              <Typography
+                color={"#DB4444"}
+                fontSize={"16px"}
+                fontWeight={"500"}
+              >
+                ₹ {price}
               </Typography>
               <Box display={"flex"} alignItems={"center"} gap={1}>
                 <Rating value={averageRating} readOnly />
@@ -90,7 +111,6 @@ const ProductCard = ({
         </CardActions>
       </Box>
     </Card>
-    
   );
 };
 

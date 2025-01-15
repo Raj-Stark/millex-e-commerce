@@ -32,7 +32,7 @@ function ResponsiveAppBar() {
   const wishlist = useAtomValue(wishListAtom);
   const cart = useAtomValue(cartAtom);
   const router = useRouter();
-  const mathcesMDBreakpoint = useMediaQuery(appTheme.breakpoints.up('md'));
+  const mathcesMDBreakpoint = useMediaQuery(appTheme.breakpoints.up("md"));
 
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
