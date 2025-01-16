@@ -10,7 +10,7 @@ import {
 } from "@mui/icons-material";
 import { BUSINESS_WHATSAPP_NUMBER } from "@/constants";
 import { getWhatsappLink } from "@/utils";
-import style from "styled-jsx/style";
+import axios from "axios";
 
 const Footer = async () => {
   const { data } = await axios.get(
