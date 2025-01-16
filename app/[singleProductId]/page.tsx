@@ -10,6 +10,10 @@ import { Review } from "@/types/review-types";
 import ProductRatings from "./components/product-ratings";
 import { Marked } from "marked";
 import ImageSlideShow from "./components/image-slide-show";
+import { Metadata } from "next";
+import { parseEntities } from "parse-entities";
+import { truncateTextWithEllipsis } from "@/utils";
+import { DOMAIN_NAME } from "@/constants";
 
 const marked = new Marked({
   gfm: true,
@@ -40,6 +44,43 @@ async function getProductById(
     }
     throw error;
   }
+}
+
+export async function generateMetadata({
+  params,
+}: SingleProductPageProps): Promise<Metadata> {
+  const id = params.singleProductId;
+
+  const product = await getProductById(id);
+
+  if (!product) return {};
+
+  const parsedDescription = await marked.parse(product.description);
+
+  const plainTextDescripion = truncateTextWithEllipsis(
+    parseEntities(
+      parsedDescription
+        .replace(/<\/?[^>]+(>|$)/g, "") // Strip HTML tags
+        .replace(/\n/g, " ") // Replace line breaks with spaces
+        .trim(),
+    ),
+    150,
+  );
+
+  return {
+    title: product.name,
+    openGraph: {
+      title: product.name,
+      description: plainTextDescripion,
+      url: DOMAIN_NAME,
+      images: product.images.map((image) => ({
+        url: image,
+        height: 630,
+        width: 1200,
+        alt: `${product.name} image`,
+      })),
+    },
+  };
 }
 
 const SingleProductPage = async ({ params }: SingleProductPageProps) => {
@@ -127,7 +168,7 @@ const SingleProductPage = async ({ params }: SingleProductPageProps) => {
             }}
             mt={2}
             dangerouslySetInnerHTML={{
-              __html: marked.parse(product.description),
+              __html: await marked.parse(product.description),
             }}
           />
 
