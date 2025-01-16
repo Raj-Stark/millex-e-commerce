@@ -17,8 +17,6 @@ const Footer = async () => {
     `${process.env.NEXT_PUBLIC_LOCAL_URL}category`,
   );
 
-  console.log("data", data);
-
   return (
     <Container
       component={"footer"}

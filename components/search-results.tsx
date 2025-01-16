@@ -32,7 +32,7 @@ const SearchResults = ({
     return () => {
       document.body.style.overflow = "auto";
     };
-  }, []);
+  }, [matchesSMBreakpoint]);
 
   return (
     <Box

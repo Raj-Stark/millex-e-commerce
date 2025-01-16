@@ -1,6 +1,6 @@
 "use client";
 import CommonButton from "@/components/button";
-import { Box, Button, IconButton, Stack, Typography } from "@mui/material";
+import { Box, IconButton, Stack, Typography } from "@mui/material";
 import React, { useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
@@ -9,7 +9,7 @@ import { cartAtom } from "@/commonAtoms/cartAtom";
 import { wishListAtom } from "@/commonAtoms/wishListAtom";
 import { triggerToaster } from "@/utils/triggerLogin";
 import { useRouter } from "next/navigation";
-import { FavoriteBorder, WhatsApp } from "@mui/icons-material";
+import { FavoriteBorder } from "@mui/icons-material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import Image from "next/image";
 import { BUSINESS_WHATSAPP_NUMBER, DOMAIN_NAME } from "@/constants";
