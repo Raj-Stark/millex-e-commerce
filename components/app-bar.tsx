@@ -13,6 +13,7 @@ import {
   ListItem,
   ListItemText,
   useMediaQuery,
+  Button,
 } from "@mui/material";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import ShoppingCartRoundedIcon from "@mui/icons-material/ShoppingCartRounded";
@@ -32,7 +33,7 @@ function ResponsiveAppBar() {
   const wishlist = useAtomValue(wishListAtom);
   const cart = useAtomValue(cartAtom);
   const router = useRouter();
-  const mathcesMDBreakpoint = useMediaQuery(appTheme.breakpoints.up('md'));
+  const mathcesMDBreakpoint = useMediaQuery(appTheme.breakpoints.up("md"));
 
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -150,15 +151,17 @@ function ResponsiveAppBar() {
                 </Typography>
               </IconButton>
             ) : (
-              <IconButton
+              <Button
                 sx={{ color: "#000" }}
                 size="medium"
                 onClick={() => router.push("/auth")}
               >
-                <Typography sx={{ fontSize: "16px", ml: 1 }}>
+                <Typography
+                  sx={{ fontSize: "16px", ml: 1, textTransform: "none" }}
+                >
                   Login/Register
                 </Typography>
-              </IconButton>
+              </Button>
             )}
           </Box>
 

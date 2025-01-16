@@ -16,9 +16,8 @@ import axios from "axios";
 import { ProductType } from "@/types/product-types";
 
 interface IProps {
-  sx?: SxProps<Theme>
+  sx?: SxProps<Theme>;
 }
-
 
 const OurProducts = (props: IProps) => {
   const sx = props.sx || {};
@@ -72,7 +71,12 @@ const OurProducts = (props: IProps) => {
         sectionTitle="Explore Our Products"
         category="scroll-btn"
       />
-      <Grid container spacing={{ xs: 2, sm: 4 }} sx={{ marginTop: "20px !important" }} columns={{ xs: 1, sm: 2, md: 3, lg: 4 }}>
+      <Grid
+        container
+        spacing={{ xs: 2, sm: 4 }}
+        sx={{ marginTop: "20px !important" }}
+        columns={{ xs: 1, sm: 2, md: 3, lg: 4 }}
+      >
         {data &&
           data.products &&
           data.products

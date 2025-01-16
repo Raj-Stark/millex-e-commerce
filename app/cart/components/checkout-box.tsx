@@ -19,7 +19,7 @@ const CheckoutBox = () => {
   };
 
   return (
-    <Paper sx={{ maxWidth: {xs: '100%', md:'560px'}, my: 8, p: 2 }}>
+    <Paper sx={{ maxWidth: { xs: "100%", md: "560px" }, my: 8, p: 2 }}>
       <Typography fontSize={"20px"} fontWeight={"medium"}>
         Cart Total :
       </Typography>

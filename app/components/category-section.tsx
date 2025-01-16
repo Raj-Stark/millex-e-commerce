@@ -8,7 +8,7 @@ import React from "react";
 import CategoryBox from "./category-box";
 
 interface IProps {
-  sx?: SxProps<Theme>
+  sx?: SxProps<Theme>;
 }
 
 const CategorySection = (props: IProps) => {
@@ -25,7 +25,7 @@ const CategorySection = (props: IProps) => {
   return (
     <Container
       maxWidth="xl"
-      sx={{ borderBottom: "1px solid", borderColor: "#D9D9D9", ...sx}}
+      sx={{ borderBottom: "1px solid", borderColor: "#D9D9D9", ...sx }}
     >
       <SectionHeader
         sectionName="Categories"
@@ -33,9 +33,9 @@ const CategorySection = (props: IProps) => {
         category="scroll-btn"
       />
       <Box
-        sx={{display: "flex", overflowY: "auto"}}
-        my={{xs: "20px", sm: "40px"}}
-        columnGap={{xs: "10px",sm: "20px", md: "40px"}}
+        sx={{ display: "flex", overflowY: "auto" }}
+        my={{ xs: "20px", sm: "40px" }}
+        columnGap={{ xs: "10px", sm: "20px", md: "40px" }}
       >
         {data &&
           data.categories.map((item: any) => {

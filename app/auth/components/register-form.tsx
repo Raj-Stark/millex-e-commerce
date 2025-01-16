@@ -26,7 +26,7 @@ const RegisterForm = ({ isLogin }: Props) => {
   const router = useRouter();
   const setUser = useSetAtom(userAtom);
 
-  const screenSizeGreatherThanSM = useMediaQuery(appTheme.breakpoints.up('sm'));
+  const screenSizeGreatherThanSM = useMediaQuery(appTheme.breakpoints.up("sm"));
 
   const {
     control,
@@ -94,15 +94,22 @@ const RegisterForm = ({ isLogin }: Props) => {
                 <>
                   <Input
                     sx={{
-                      '& .MuiInputBase-input::placeholder': {
-                        color: { xs: 'greyScale.shade400', md: 'rgba(0, 0, 0, 0.54)' },
+                      "& .MuiInputBase-input::placeholder": {
+                        color: {
+                          xs: "greyScale.shade400",
+                          md: "rgba(0, 0, 0, 0.54)",
+                        },
                         opacity: 1,
                       },
                       color: {
-                        xs: 'greyScale.shade100', md: "black"
-                      }
+                        xs: "greyScale.shade100",
+                        md: "black",
+                      },
                     }}
-                    placeholder="Name" {...field} error={!!error} />
+                    placeholder="Name"
+                    {...field}
+                    error={!!error}
+                  />
                   {errors.name && (
                     <Typography
                       component={"span"}
@@ -131,15 +138,22 @@ const RegisterForm = ({ isLogin }: Props) => {
             <>
               <Input
                 sx={{
-                  '& .MuiInputBase-input::placeholder': {
-                    color: { xs: 'greyScale.shade400', md: 'rgba(0, 0, 0, 0.54)' }, // Change placeholder color here
+                  "& .MuiInputBase-input::placeholder": {
+                    color: {
+                      xs: "greyScale.shade400",
+                      md: "rgba(0, 0, 0, 0.54)",
+                    }, // Change placeholder color here
                     opacity: 1, // Ensure it doesn't inherit opacity
                   },
                   color: {
-                    xs: 'greyScale.shade100', md: "black"
-                  }
+                    xs: "greyScale.shade100",
+                    md: "black",
+                  },
                 }}
-                placeholder="Email" {...field} error={!!error} />
+                placeholder="Email"
+                {...field}
+                error={!!error}
+              />
 
               {errors.email && (
                 <Typography component={"span"} sx={{ color: "secondary.main" }}>
@@ -164,13 +178,17 @@ const RegisterForm = ({ isLogin }: Props) => {
             <>
               <Input
                 sx={{
-                  '& .MuiInputBase-input::placeholder': {
-                    color: { xs: 'greyScale.shade400', md: 'rgba(0, 0, 0, 0.54)' }, // Change placeholder color here
+                  "& .MuiInputBase-input::placeholder": {
+                    color: {
+                      xs: "greyScale.shade400",
+                      md: "rgba(0, 0, 0, 0.54)",
+                    }, // Change placeholder color here
                     opacity: 1, // Ensure it doesn't inherit opacity
                   },
                   color: {
-                    xs: 'greyScale.shade100', md: "black"
-                  }
+                    xs: "greyScale.shade100",
+                    md: "black",
+                  },
                 }}
                 placeholder="Password"
                 type="password"
@@ -190,15 +208,21 @@ const RegisterForm = ({ isLogin }: Props) => {
       <CommonButton
         size={(() => {
           if (screenSizeGreatherThanSM) {
-            return "large"
+            return "large";
           }
-          return "small"
+          return "small";
         })()}
         type="submit"
         disabled={isPending}
         sx={{ width: "100%", mt: { xs: "24px", sm: "40px" } }}
       >
-        <Typography sx={{ fontSize: "12px", fontWeight: "bold", textTransform: "capitalize" }}>
+        <Typography
+          sx={{
+            fontSize: "12px",
+            fontWeight: "bold",
+            textTransform: "capitalize",
+          }}
+        >
           {isPending ? "Loading..." : !isLogin ? "CREATE ACCOUNT" : "Log In"}
         </Typography>
       </CommonButton>

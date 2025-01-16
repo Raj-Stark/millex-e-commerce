@@ -79,7 +79,7 @@ const UserDetailsForm = () => {
       await axios.patch(
         updateUserEndpoint,
         { name: data.name, email: data.email, phone: data.phone, address },
-        { withCredentials: true }
+        { withCredentials: true },
       );
     },
     onSuccess: () => {
@@ -105,7 +105,12 @@ const UserDetailsForm = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Grid container columns={{ xs: 1, lg: 2 }} columnSpacing={8} rowSpacing={4}>
+      <Grid
+        container
+        columns={{ xs: 1, lg: 2 }}
+        columnSpacing={8}
+        rowSpacing={4}
+      >
         <Grid item xs={1}>
           <Controller
             name="name"
@@ -171,8 +176,9 @@ const UserDetailsForm = () => {
                 name={fieldName as keyof FormData}
                 control={control}
                 rules={{
-                  required: `${fieldName.charAt(0).toUpperCase() + fieldName.slice(1)
-                    } is required`,
+                  required: `${
+                    fieldName.charAt(0).toUpperCase() + fieldName.slice(1)
+                  } is required`,
                 }}
                 render={({ field }) => (
                   <>
@@ -202,7 +208,7 @@ const UserDetailsForm = () => {
                 )}
               />
             </Grid>
-          )
+          ),
         )}
 
         <Grid item xs={6}>

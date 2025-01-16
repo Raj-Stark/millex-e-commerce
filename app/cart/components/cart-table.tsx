@@ -56,37 +56,42 @@ const CartTable = () => {
     <TableContainer component={Paper} sx={{ width: "100%", mt: 10 }}>
       <Table
         sx={{
-          width: "100%", display: { xs: 'block', md: 'table' },
-          '& tr': {
-            display: { xs: 'flex', md: 'table-row' }, flexDirection: "column", borderBottom: { xs: '1px solid rgba(224, 224, 224, 1)' },
+          width: "100%",
+          display: { xs: "block", md: "table" },
+          "& tr": {
+            display: { xs: "flex", md: "table-row" },
+            flexDirection: "column",
+            borderBottom: { xs: "1px solid rgba(224, 224, 224, 1)" },
           },
-          '& td': {
-            display: { xs: 'flex', md: 'table-cell', flexDirection: 'column', borderBottom: 'none' },
+          "& td": {
+            display: {
+              xs: "flex",
+              md: "table-cell",
+              flexDirection: "column",
+              borderBottom: "none",
+            },
           },
-          '& thead': {
-            display: { xs: 'none', md: 'table-header-group' }, flexDirection: 'column',
+          "& thead": {
+            display: { xs: "none", md: "table-header-group" },
+            flexDirection: "column",
           },
-          '& tbody': {
-            display: { xs: 'block', md: 'table-row-group' },
+          "& tbody": {
+            display: { xs: "block", md: "table-row-group" },
           },
         }}
         aria-label="product table"
       >
         <TableHead>
-          <TableRow >
-            <TableCell align="left" >
-              Product
-            </TableCell>
-            <TableCell align="left" >
-              Price
-            </TableCell>
-            <TableCell sx={{ textAlign: { xs: 'left', md: 'center' } }} >
+          <TableRow>
+            <TableCell align="left">Product</TableCell>
+            <TableCell align="left">Price</TableCell>
+            <TableCell sx={{ textAlign: { xs: "left", md: "center" } }}>
               Quantity
             </TableCell>
-            <TableCell sx={{ textAlign: { xs: 'left', md: 'right' } }} >
+            <TableCell sx={{ textAlign: { xs: "left", md: "right" } }}>
               Subtotal
             </TableCell>
-            <TableCell sx={{ textAlign: { xs: 'left', md: 'right' } }} >
+            <TableCell sx={{ textAlign: { xs: "left", md: "right" } }}>
               Remove Item
             </TableCell>
           </TableRow>
@@ -94,7 +99,6 @@ const CartTable = () => {
         <TableBody>
           {cartData.map((item) => (
             <TableRow
-
               key={item.id}
               sx={{
                 "&:last-child td, &:last-child th": { border: 0 },
@@ -103,9 +107,9 @@ const CartTable = () => {
               <TableCell>
                 <Box
                   position={"relative"}
-                  flexDirection={{ xs: 'column', md: 'row' }}
+                  flexDirection={{ xs: "column", md: "row" }}
                   display={"flex"}
-                  alignItems={{ xs: 'auto', md: 'center' }}
+                  alignItems={{ xs: "auto", md: "center" }}
                 >
                   <Image
                     height={120}
@@ -121,8 +125,8 @@ const CartTable = () => {
                     fontWeight={"bold"}
                     sx={{
                       maxWidth: "300px",
-                      overflow: { md: 'hidden' },
-                      textOverflow: { md: 'ellipsis' },
+                      overflow: { md: "hidden" },
+                      textOverflow: { md: "ellipsis" },
                       whiteSpace: { md: "nowrap" },
                     }}
                   >
@@ -137,14 +141,21 @@ const CartTable = () => {
                 }}
               >
                 <Box display={"flex"} justifyContent={"space-between"}>
-                  <Typography display={{ xs: 'block', md: 'none' }}>Price: </Typography>
+                  <Typography display={{ xs: "block", md: "none" }}>
+                    Price:{" "}
+                  </Typography>
                   <Typography>{formatCurrency(item.price)}</Typography>
                 </Box>
               </TableCell>
-              <TableCell
-                align="right" >
-                <Box display={"flex"} alignItems={'center'} justifyContent={{ xs: 'space-between', md: 'center' }}>
-                  <Typography display={{ xs: 'block', md: 'none' }}>Quantity: </Typography>
+              <TableCell align="right">
+                <Box
+                  display={"flex"}
+                  alignItems={"center"}
+                  justifyContent={{ xs: "space-between", md: "center" }}
+                >
+                  <Typography display={{ xs: "block", md: "none" }}>
+                    Quantity:{" "}
+                  </Typography>
                   <Box
                     border={"1px solid #000"}
                     display={"flex"}
@@ -189,22 +200,35 @@ const CartTable = () => {
                   </Box>
                 </Box>
               </TableCell>
-              <TableCell
-                align="right"
-                sx={{ fontSize: "16px" }}
-              >
-                <Box display={"flex"} justifyContent={{ xs: 'space-between', md: 'flex-end' }}>
-                  <Typography display={{ xs: 'block', md: 'none' }}>Subtotal: </Typography>
-                  <Typography>{formatCurrency(item.price * item.quantity)}</Typography>
+              <TableCell align="right" sx={{ fontSize: "16px" }}>
+                <Box
+                  display={"flex"}
+                  justifyContent={{ xs: "space-between", md: "flex-end" }}
+                >
+                  <Typography display={{ xs: "block", md: "none" }}>
+                    Subtotal:{" "}
+                  </Typography>
+                  <Typography>
+                    {formatCurrency(item.price * item.quantity)}
+                  </Typography>
                 </Box>
               </TableCell>
-              <TableCell
-                align="right"
-                sx={{ fontSize: "16px" }}
-              >
-                <Button onClick={() => handleDelete(item.id)} variant="contained" sx={{ background: "red", display: { xs: 'block', md: 'none' } }}>Remove</Button>
+              <TableCell align="right" sx={{ fontSize: "16px" }}>
+                <Button
+                  onClick={() => handleDelete(item.id)}
+                  variant="contained"
+                  sx={{
+                    background: "red",
+                    display: { xs: "block", md: "none" },
+                  }}
+                >
+                  Remove
+                </Button>
                 <IconButton
-                  sx={{ color: "secondary.main", display: { xs: 'none', md: 'inline-block' } }}
+                  sx={{
+                    color: "secondary.main",
+                    display: { xs: "none", md: "inline-block" },
+                  }}
                   onClick={() => handleDelete(item.id)}
                 >
                   <DeleteIcon />
@@ -214,7 +238,7 @@ const CartTable = () => {
           ))}
         </TableBody>
       </Table>
-    </TableContainer >
+    </TableContainer>
   );
 };
 

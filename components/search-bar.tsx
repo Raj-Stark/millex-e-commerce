@@ -6,7 +6,6 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import SearchResults from "./search-results";
 
-
 const SearchBar = () => {
   const { register, watch } = useForm({
     defaultValues: {
@@ -36,12 +35,14 @@ const SearchBar = () => {
 
   return (
     <Box sx={{ display: "flex", flexGrow: 1, justifyContent: "center" }}>
-      <Box sx={{
-        width: "100%",
-        maxWidth: "800px",
-        position: { xs: 'static', md: 'relative' },
-        display: "flex",
-      }}>
+      <Box
+        sx={{
+          width: "100%",
+          maxWidth: "800px",
+          position: { xs: "static", md: "relative" },
+          display: "flex",
+        }}
+      >
         <Input
           placeholder="What are you looking for?"
           type="text"
@@ -70,14 +71,14 @@ const SearchBar = () => {
           }}
         />
 
-        {debouncedSearchValue &&
+        {debouncedSearchValue && (
           <SearchResults
             isLoading={isLoading}
             error={error}
             data={data}
             debouncedSearchValue={debouncedSearchValue}
           />
-        }
+        )}
       </Box>
     </Box>
   );

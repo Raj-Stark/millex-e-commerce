@@ -11,6 +11,9 @@ import { triggerToaster } from "@/utils/triggerLogin";
 import { useRouter } from "next/navigation";
 import { FavoriteBorder } from "@mui/icons-material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import Image from "next/image";
+import { BUSINESS_WHATSAPP_NUMBER, DOMAIN_NAME } from "@/constants";
+import { getWhatsappLink } from "@/utils";
 
 interface Props {
   id: string;
@@ -113,7 +116,12 @@ const AddToCartSection = ({
   };
 
   return (
-    <Stack direction={"column"} spacing={2} mt={4} maxWidth={{ xs: '500px', md: "300px" }}>
+    <Stack
+      direction={"column"}
+      spacing={2}
+      mt={4}
+      maxWidth={{ xs: "500px", md: "300px" }}
+    >
       <Box display={"flex"} justifyContent={"space-between"}>
         <Box
           border={"2px solid #000"}
@@ -163,6 +171,24 @@ const AddToCartSection = ({
         >
           {isInWishlist ? <FavoriteIcon /> : <FavoriteBorder />}
         </IconButton>
+      </Box>
+      <Box>
+        <a
+          style={{
+            display: "flex",
+          }}
+          href={getWhatsappLink(BUSINESS_WHATSAPP_NUMBER, {
+            text: `Hello, I would like to enquire about the ${title}. ${DOMAIN_NAME}/${id}`,
+          })}
+          target="_blank"
+        >
+          <Image
+            src="/assets/chat-on-whatsapp.png"
+            width={150}
+            height={32}
+            alt="chat on whatsapp image"
+          />
+        </a>
       </Box>
 
       <CommonButton sx={{ py: 1.6 }} onClick={handleCartUpdate}>

@@ -12,7 +12,9 @@ const Home = () => {
       <Stack color="primary.main" direction={"column"}>
         <HeroSection />
         <CategorySection sx={{ mt: { xs: "50px", md: "80px", xl: "120px" } }} />
-        <OurProducts sx={{ mt: { xs: "50px", md: "80px", xl: "120px" }, mb: "50px" }} />
+        <OurProducts
+          sx={{ mt: { xs: "50px", md: "80px", xl: "120px" }, mb: "50px" }}
+        />
       </Stack>
       <Footer />
     </>

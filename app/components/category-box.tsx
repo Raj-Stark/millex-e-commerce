@@ -19,7 +19,7 @@ const CategoryBox = ({ text, imgUrl, categoryId }: Props) => {
       sx={{
         display: "flex",
         flex: 1,
-        minWidth: {xs: "210px"},
+        minWidth: { xs: "210px" },
         justifyContent: "center",
         alignItems: "center",
         borderRadius: "8px",

@@ -12,11 +12,11 @@ interface CategoryPageProps {
 }
 
 async function getProductsByCategory(
-  categoryId: string
+  categoryId: string,
 ): Promise<ProductType[]> {
   try {
     const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_LOCAL_URL}product/category/${categoryId}`
+      `${process.env.NEXT_PUBLIC_LOCAL_URL}product/category/${categoryId}`,
     );
     return response.data.products;
   } catch (error) {
