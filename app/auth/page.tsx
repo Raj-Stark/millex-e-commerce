@@ -33,11 +33,11 @@ const AuthPage = () => {
           zIndex: 1,
           top: 20,
           left: 50,
-          width: { xs: "70px", sm: "100px" },
+          width: { xs: "105px", sm: "150px" },
           height: { xs: "70px", sm: "100px" },
         }}
       >
-        <Image fill src={"/assets/logo-light.png"} alt="site-logo" />
+        <Image fill src={"/assets/logo.avif"} alt="site-logo" />
       </Box>
 
       <Box

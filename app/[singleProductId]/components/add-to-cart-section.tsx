@@ -14,33 +14,21 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import Image from "next/image";
 import { BUSINESS_WHATSAPP_NUMBER, DOMAIN_NAME } from "@/constants";
 import { getWhatsappLink } from "@/utils";
+import { ProductType } from "@/types/product-types";
 
 interface Props {
-  id: string;
-  image: string;
-  title: string;
-  price: number;
-  inventory: number;
-  averageRating: number;
-  numOfReviews: number;
+  item: ProductType;
 }
 
-const AddToCartSection = ({
-  id,
-  title,
-  image,
-  price,
-  inventory,
-  averageRating,
-  numOfReviews,
-}: Props) => {
+const AddToCartSection = ({ item }: Props) => {
+  const { _id, inventory, name, images, price } = item;
   const [cartData, setCartData] = useAtom(cartAtom);
   const [localQuantity, setLocalQuantity] = useState(1);
   const router = useRouter();
   const [wishList, setWishList] = useAtom(wishListAtom);
 
-  const isInCart = cartData.some((item) => item.id === id);
-  const isInWishlist = wishList.some((item) => item.id === id);
+  const isInCart = cartData.some((item) => item.id === _id);
+  const isInWishlist = wishList.some((item) => item._id === _id);
 
   const showToaster = (msg: string, action: "success" | "error") => {
     triggerToaster({ msg, action });
@@ -69,9 +57,9 @@ const AddToCartSection = ({
     }
 
     const newCartItem = {
-      id: id,
-      title: title,
-      image: image,
+      id: _id,
+      title: name,
+      image: images[0],
       price: price,
       inventory: inventory,
       quantity: localQuantity,
@@ -79,7 +67,7 @@ const AddToCartSection = ({
     };
 
     setCartData((prev) => [...prev, newCartItem]);
-    setWishList((prev) => prev.filter((item) => item.id !== id));
+    setWishList((prev) => prev.filter((item) => item._id !== _id));
     router.push("/cart");
     showToaster("Item added to cart successfully", "success");
   };
@@ -90,23 +78,10 @@ const AddToCartSection = ({
     }
 
     if (isInWishlist) {
-      setWishList((prev) => prev.filter((item) => item.id !== id));
+      setWishList((prev) => prev.filter((item) => item._id !== _id));
       showToast("Item removed from Wishlist", "success");
     } else {
-      setWishList((prev) => [
-        ...prev,
-        {
-          id,
-          title,
-          image,
-          price,
-          inventory,
-          quantity: 1,
-          cartTotal: price,
-          averageRating,
-          numOfReviews,
-        },
-      ]);
+      setWishList((prev) => [...prev, item]);
       showToast("Item added to Wishlist", "success");
     }
   };
@@ -178,7 +153,7 @@ const AddToCartSection = ({
             display: "flex",
           }}
           href={getWhatsappLink(BUSINESS_WHATSAPP_NUMBER, {
-            text: `Hello, I would like to enquire about the ${title}. ${DOMAIN_NAME}/${id}`,
+            text: `Hello, I would like to enquire about the ${name}. ${DOMAIN_NAME}/${_id}`,
           })}
           target="_blank"
         >

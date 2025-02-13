@@ -27,13 +27,13 @@ import { wishListAtom } from "@/commonAtoms/wishListAtom";
 import SearchBar from "./search-bar";
 import Image from "next/image";
 import appTheme from "@/config/theme";
+import appBarStyles from "./app-bar-styles.module.css";
 
 function ResponsiveAppBar() {
   const user = useAtomValue(userAtom);
   const wishlist = useAtomValue(wishListAtom);
   const cart = useAtomValue(cartAtom);
   const router = useRouter();
-  const mathcesMDBreakpoint = useMediaQuery(appTheme.breakpoints.up("md"));
 
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -102,12 +102,9 @@ function ResponsiveAppBar() {
           }}
         >
           <a href="/">
-            <Image
-              src="/assets/logo.svg"
-              alt="logo"
-              width={mathcesMDBreakpoint ? 64 : 40}
-              height={mathcesMDBreakpoint ? 64 : 40}
-            />
+            <div className={appBarStyles["logo-container"]}>
+              <Image fill src="/assets/logo.avif" alt="logo" />
+            </div>
           </a>
 
           <Box sx={{ flexGrow: 1 }}>
@@ -140,16 +137,18 @@ function ResponsiveAppBar() {
               </Badge>
             </IconButton>
             {user.isLoggedIn ? (
-              <IconButton
+              <Button
                 sx={{ color: "#000" }}
                 size="medium"
                 onClick={() => router.push("/profile")}
               >
                 <AccountCircleIcon style={{ fontSize: "28px" }} />
-                <Typography sx={{ fontSize: "16px", ml: 1 }}>
+                <Typography
+                  sx={{ fontSize: "16px", ml: 1, textTransform: "none" }}
+                >
                   {user.name}
                 </Typography>
-              </IconButton>
+              </Button>
             ) : (
               <Button
                 sx={{ color: "#000" }}

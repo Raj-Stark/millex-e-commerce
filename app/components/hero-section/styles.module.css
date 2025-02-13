@@ -1,0 +1,24 @@
+.swiper-slider {
+  position: relative;
+  width: 100%;
+  height: 200px;
+}
+
+@media (min-width: 600px) {
+  .swiper-slider {
+    height: 300px;
+    background-color: #dee0e2;
+  }
+}
+
+@media (min-width: 900px) {
+  .swiper-slider {
+    height: 400px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .swiper-slider {
+    height: 600px;
+  }
+}

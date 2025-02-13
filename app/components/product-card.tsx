@@ -12,26 +12,15 @@ import React from "react";
 import ProductCardBtn from "./product-card-btn";
 import Link from "next/link";
 import WishListBtn from "./wishlist-btn";
+import { ProductType } from "@/types/product-types";
 
 interface ProductCardProps {
-  id: string;
-  image: string;
-  title: string;
-  price: number;
-  inventory: number;
-  averageRating: number;
-  numOfReviews: number;
+  product: ProductType;
 }
 
-const ProductCard = ({
-  id,
-  image,
-  title,
-  price,
-  averageRating,
-  numOfReviews,
-  inventory,
-}: ProductCardProps) => {
+const ProductCard = ({ product }: ProductCardProps) => {
+  const { _id, name, price, images, numOfReviews, averageRating, inventory } =
+    product;
   return (
     <Card
       sx={{
@@ -46,21 +35,13 @@ const ProductCard = ({
       }}
     >
       <Box>
-        <WishListBtn
-          id={id}
-          title={title}
-          image={image}
-          price={price}
-          inventory={inventory}
-          numOfReviews={numOfReviews}
-          averageRating={averageRating}
-        />
-        <Link href={`/${id}`}>
+        <WishListBtn product={product} />
+        <Link href={`/${_id}`}>
           <CardMedia
             component="img"
             height="250"
-            image={image}
-            alt={title}
+            image={images[0]}
+            alt={name}
             sx={{ objectFit: "cover" }}
           />
         </Link>
@@ -69,7 +50,7 @@ const ProductCard = ({
             variant="h6"
             //  sx={{ height: "50px" }}
           >
-            {title}
+            {name}
           </Typography>
         </CardContent>
       </Box>
@@ -102,9 +83,9 @@ const ProductCard = ({
         </CardContent>
         <CardActions>
           <ProductCardBtn
-            id={id}
-            title={title}
-            image={image}
+            id={_id}
+            title={name}
+            image={product.images[0]}
             price={price}
             inventory={inventory}
           />

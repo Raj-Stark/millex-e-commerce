@@ -1,0 +1,23 @@
+.slide-show-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+@media (min-width: 600px) {
+  .slide-show-image {
+    height: 300px;
+  }
+}
+
+@media (min-width: 900px) {
+  .slide-show-image {
+    height: 400px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .slide-show-image {
+    height: 600px;
+  }
+}

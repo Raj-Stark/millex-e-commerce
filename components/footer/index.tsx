@@ -40,7 +40,7 @@ const Footer = async () => {
           <Box style={{ flexGrow: 1 }}>
             <a style={{ display: "flex" }} href="/">
               <div className={footerStyles["logo-container"]}>
-                <Image src="/assets/logo.svg" alt="logo" fill />
+                <Image src="/assets/logo.avif" alt="logo" fill />
               </div>
             </a>
             <Typography variant="h4" fontWeight="bold">

@@ -173,15 +173,7 @@ const SingleProductPage = async ({ params }: SingleProductPageProps) => {
           />
 
           <Divider sx={{ mt: { xs: 2, md: 4 } }} />
-          <AddToCartSection
-            id={product._id}
-            title={product.name}
-            image={product.images[0]}
-            price={product.price}
-            inventory={product.inventory}
-            averageRating={product.averageRating}
-            numOfReviews={product.numOfReviews}
-          />
+          <AddToCartSection item={product} />
         </Grid>
       </Grid>
 

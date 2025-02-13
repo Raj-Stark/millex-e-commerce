@@ -83,15 +83,7 @@ const OurProducts = (props: IProps) => {
             .filter((item: ProductType) => item.featured)
             .map((product: ProductType) => (
               <Grid item xs={1} key={product._id}>
-                <ProductCard
-                  id={product._id}
-                  title={product.name}
-                  image={product.images[0]}
-                  price={product.price}
-                  inventory={product.inventory}
-                  averageRating={product.averageRating}
-                  numOfReviews={product.numOfReviews}
-                />
+                <ProductCard product={product} />
               </Grid>
             ))}
       </Grid>

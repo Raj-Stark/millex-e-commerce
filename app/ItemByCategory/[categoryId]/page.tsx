@@ -54,15 +54,7 @@ const CategoryPage = async ({ params }: CategoryPageProps) => {
         {data?.length > 0 ? (
           data?.map((product) => (
             <Grid item xs={1} key={product._id}>
-              <ProductCard
-                id={product._id}
-                title={product.name}
-                image={product.images[0]}
-                price={product.price}
-                inventory={product.inventory}
-                averageRating={product.averageRating}
-                numOfReviews={product.numOfReviews}
-              />
+              <ProductCard product={product} />
             </Grid>
           ))
         ) : (
