@@ -1,4 +1,5 @@
 import appTheme from "@/config/theme";
+import { ProductType } from "@/types/product-types";
 import { formatCurrency } from "@/utils/format-currency";
 import {
   Box,
@@ -6,6 +7,7 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 
@@ -41,13 +43,13 @@ const SearchResults = ({
         top: { xs: "56px", md: "45px" },
         left: "0px",
         width: "100%",
-        height: "calc(100% - 56px)",
+        height: { xs: "calc(100% - 56px)", md: "auto" },
         maxHeight: { xs: "100%", md: "400px" },
         overflowY: "auto",
         backgroundColor: "white",
         borderRadius: "5px",
         boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-        zIndex: 1000,
+        zIndex: 2000,
         border: "1px solid #eaeaea",
         // marginLeft: { xs: "20px" },
       }}
@@ -73,7 +75,7 @@ const SearchResults = ({
       )}
 
       {data?.products &&
-        data.products.map((product: any, index: number) => (
+        data.products.map((product: ProductType, index: number) => (
           <Box
             key={index}
             sx={{
@@ -88,16 +90,15 @@ const SearchResults = ({
               gap: 2,
             }}
             onClick={() => {
-              router.push(`/${product._id}`);
+              router.push(`/${product.slug}`);
             }}
           >
-            <Box
-              component="img"
-              src={product.image || "/placeholder-image.jpg"}
+            <Image
+              width={50}
+              height={50}
+              src={product && product?.images?.length ? product.images[0] : ""}
               alt={product.name}
-              sx={{
-                width: 50,
-                height: 50,
+              style={{
                 objectFit: "cover",
                 borderRadius: "4px",
               }}

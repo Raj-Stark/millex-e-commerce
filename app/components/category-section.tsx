@@ -45,6 +45,7 @@ const CategorySection = (props: IProps) => {
                 text={item.name}
                 imgUrl={item.image}
                 categoryId={item._id}
+                slug={item.slug}
               />
             );
           })}

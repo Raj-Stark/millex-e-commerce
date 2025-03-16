@@ -1,0 +1,12 @@
+.logo-container {
+  width: 96px;
+  height: 64px;
+  position: relative;
+}
+
+@media (max-width: 900px) {
+  .logo-container {
+    width: 60px;
+    height: 40px;
+  }
+}

@@ -13,24 +13,49 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     `${process.env.NEXT_PUBLIC_LOCAL_URL}product`,
   );
 
-  const {
-    data: { categories },
-  } = await axios.get<{ categories: Category[] }>(
-    `${process.env.NEXT_PUBLIC_LOCAL_URL}category`,
-  );
+  let categoryRoutes: string[] = [];
+
+  async function getAllCategoryRoutes(
+    parentCategory: Category | null,
+    parentRoute: string,
+  ) {
+    let url = `${process.env.NEXT_PUBLIC_LOCAL_URL}category`;
+    if (parentCategory) {
+      url = url + `/${[parentCategory.slug]}`;
+    }
+    const {
+      data: { categories },
+    } = await axios.get<{ categories: Category[] }>(url);
+
+    categoryRoutes = [
+      ...categoryRoutes,
+      ...categories.map((category) => {
+        if (parentRoute) {
+          return `${baseRoute}/category/${parentRoute}${category.slug}`;
+        } else {
+          return `${baseRoute}/category/${category.slug}`;
+        }
+      }),
+    ];
+    for (const category of categories) {
+      await getAllCategoryRoutes(category, `${parentRoute}${category.slug}/`);
+    }
+  }
+
+  await getAllCategoryRoutes(null, "");
 
   const productsSiteMap = products.map((product) => {
     return {
-      url: `${baseRoute}/${product._id}`,
+      url: `${baseRoute}/${product.slug}`,
       lastModified: new Date(),
       changeFrequency: "monthly" as const,
       priority: 0.8,
     };
   });
 
-  const categoriesSiteMap = categories.map((category) => {
+  const categoriesSiteMap = categoryRoutes.map((category) => {
     return {
-      url: `${baseRoute}/ItemByCategory/${category._id}`,
+      url: category,
       lastModified: new Date(),
       changeFrequency: "yearly" as const,
       priority: 0.6,

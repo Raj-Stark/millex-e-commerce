@@ -22,7 +22,7 @@ const marked = new Marked({
 
 interface SingleProductPageProps {
   params: {
-    singleProductId: string;
+    singleProductSlug: string;
   };
 }
 
@@ -31,11 +31,11 @@ export interface SingleProductType extends ProductType {
 }
 
 async function getProductById(
-  singleProductId: string,
+  singleProductSlug: string,
 ): Promise<SingleProductType | null> {
   try {
     const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_LOCAL_URL}product/${singleProductId}`,
+      `${process.env.NEXT_PUBLIC_LOCAL_URL}product/${singleProductSlug}`,
     );
     return response.data.product;
   } catch (error) {
@@ -49,7 +49,7 @@ async function getProductById(
 export async function generateMetadata({
   params,
 }: SingleProductPageProps): Promise<Metadata> {
-  const id = params.singleProductId;
+  const id = params.singleProductSlug;
 
   const product = await getProductById(id);
 
@@ -84,13 +84,13 @@ export async function generateMetadata({
 }
 
 const SingleProductPage = async ({ params }: SingleProductPageProps) => {
-  const { singleProductId } = params;
+  const { singleProductSlug } = params;
 
   let product: SingleProductType | null = null;
   let error: string | null = null;
 
   try {
-    product = await getProductById(singleProductId);
+    product = await getProductById(singleProductSlug);
   } catch (err) {
     error = err instanceof Error ? err.message : "An unexpected error occurred";
   }
@@ -173,21 +173,13 @@ const SingleProductPage = async ({ params }: SingleProductPageProps) => {
           />
 
           <Divider sx={{ mt: { xs: 2, md: 4 } }} />
-          <AddToCartSection
-            id={product._id}
-            title={product.name}
-            image={product.images[0]}
-            price={product.price}
-            inventory={product.inventory}
-            averageRating={product.averageRating}
-            numOfReviews={product.numOfReviews}
-          />
+          <AddToCartSection item={product} />
         </Grid>
       </Grid>
 
       <Divider sx={{ mt: { xs: 4, md: 8 } }} />
 
-      <AddReviewForm productId={singleProductId} />
+      <AddReviewForm productId={product._id} />
       <ReviewList reviews={product.reviews} />
     </Container>
   );

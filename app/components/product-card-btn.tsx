@@ -40,7 +40,7 @@ const ProductCardBtn = ({ id, title, image, price, inventory }: Props) => {
       return;
     }
 
-    setWishList((prev) => prev.filter((item) => item.id !== id));
+    setWishList((prev) => prev.filter((item) => item._id !== id));
 
     const newCartItem = {
       id,

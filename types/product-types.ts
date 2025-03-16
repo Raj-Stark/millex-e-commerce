@@ -3,6 +3,7 @@ import { Category } from "./category-types";
 export interface ProductType {
   _id: string;
   name: string;
+  slug: string;
   price: number;
   images: string[];
   numOfReviews: number;
