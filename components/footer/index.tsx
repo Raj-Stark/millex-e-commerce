@@ -102,7 +102,7 @@ const Footer = async () => {
                         style={{
                           textDecoration: "none",
                         }}
-                        href={`/ItemByCategory/${item._id}`}
+                        href={`/cateogry/${item.slug}`}
                       >
                         <Typography variant="body2" color="secondary.main">
                           {item.name}

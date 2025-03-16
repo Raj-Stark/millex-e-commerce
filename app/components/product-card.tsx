@@ -19,8 +19,16 @@ interface ProductCardProps {
 }
 
 const ProductCard = ({ product }: ProductCardProps) => {
-  const { _id, name, price, images, numOfReviews, averageRating, inventory } =
-    product;
+  const {
+    _id,
+    name,
+    slug,
+    price,
+    images,
+    numOfReviews,
+    averageRating,
+    inventory,
+  } = product;
   return (
     <Card
       sx={{
@@ -36,7 +44,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
     >
       <Box>
         <WishListBtn product={product} />
-        <Link href={`/${_id}`}>
+        <Link href={`/${slug}`}>
           <CardMedia
             component="img"
             height="250"

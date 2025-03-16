@@ -8,9 +8,10 @@ interface Props {
   text: string;
   imgUrl: string;
   categoryId: string;
+  slug: string;
 }
 
-const CategoryBox = ({ text, imgUrl, categoryId }: Props) => {
+const CategoryBox = ({ text, imgUrl, categoryId, slug }: Props) => {
   const router = useRouter();
   return (
     <Paper
@@ -40,7 +41,7 @@ const CategoryBox = ({ text, imgUrl, categoryId }: Props) => {
       />
 
       <Box
-        onClick={() => router.push(`/ItemByCategory/${categoryId}`)}
+        onClick={() => router.push(`/category/${slug}`)}
         sx={{
           cursor: "pointer",
           position: "relative",

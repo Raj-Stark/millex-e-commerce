@@ -3,7 +3,6 @@ import { Navigation, Pagination, Zoom } from "swiper/modules";
 import { SwiperSlide, Swiper } from "swiper/react";
 import SwiperContainer from "./SwiperContainer";
 import Modal from "@/components/Modal";
-import { useClickAway } from "@/hooks/useClickAway";
 import "swiper/css";
 import "swiper/css/zoom";
 import "swiper/css/pagination";
@@ -15,9 +14,6 @@ interface Props {
 }
 
 const ImageModal = ({ closeModal, images, activeImage }: Props) => {
-  const modalImageRef = useClickAway<HTMLImageElement>(() => {
-    closeModal();
-  });
   return (
     <Modal closeModal={closeModal}>
       <Swiper
@@ -52,7 +48,6 @@ const ImageModal = ({ closeModal, images, activeImage }: Props) => {
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  ref={modalImageRef}
                   className={`swiper-zoom-target`}
                   src={item}
                   alt="carousel-image"
