@@ -5,8 +5,7 @@ import React from "react";
 import axios from "axios";
 import { ProductType } from "@/types/product-types";
 import { Category } from "@/types/category-types";
-import { SubCategoryLink } from "./SubCategoryLink";
-import Link from "next/link";
+import SubCategorySelect from "./SubcategorySelect";
 
 interface CategoryPageProps {
   params: {
@@ -26,9 +25,7 @@ async function getProductsByCategory(
   try {
     const response = await axios.post<Response>(
       `${process.env.NEXT_PUBLIC_LOCAL_URL}product/filter`,
-      {
-        categorySlugs,
-      },
+      { categorySlugs },
     );
     return response.data;
   } catch (error) {
@@ -51,7 +48,7 @@ const CategoryPage = async ({ params }: CategoryPageProps) => {
   let error: string | null = null;
 
   try {
-    let response = await getProductsByCategory(categorySlugs);
+    const response = await getProductsByCategory(categorySlugs);
     products = response.products;
     count = response.count;
     subcategories = response.subcategories;
@@ -70,38 +67,36 @@ const CategoryPage = async ({ params }: CategoryPageProps) => {
         sectionName="Item By Category"
       />
 
-      <Box display="flex">
-        {subcategories?.length > 0 && (
-          <Box
-            sx={{
-              width: "300px",
-            }}
-          >
-            <Typography variant="h6" sx={{ mb: 1 }}>
-              Sizes
-            </Typography>
-            <ul>
-              {subcategories.map((subcategory) => {
-                return (
-                  <li key={subcategory.slug}>
-                    <SubCategoryLink category={subcategory} />
-                  </li>
-                );
-              })}
-            </ul>
+      <Box
+        display="flex"
+        flexDirection={{ xs: "column", md: "row" }}
+        gap={2}
+        alignItems={{ xs: "stretch", md: "flex-start" }}
+      >
+        {subcategories.length > 0 && (
+          <Box sx={{ width: { xs: "100%", md: "300px" } }}>
+            <SubCategorySelect subcategories={subcategories} />
           </Box>
         )}
-        <Grid container spacing={3} columns={{ xs: 1, sm: 2, md: 3, lg: 4 }}>
+
+        <Grid
+          container
+          spacing={3}
+          columns={{ xs: 1, sm: 2, md: 3, lg: 4 }}
+          flex={1}
+        >
           {products?.length > 0 ? (
-            products?.map((product) => (
+            products.map((product) => (
               <Grid item xs={1} key={product._id}>
                 <ProductCard product={product} />
               </Grid>
             ))
           ) : (
-            <Typography mt={16} fontSize={"24px"} textAlign={"center"}>
-              No Product found for this category !!!
-            </Typography>
+            <Grid item xs={12}>
+              <Typography mt={8} fontSize="20px" textAlign="center">
+                No Product found for this category !!!
+              </Typography>
+            </Grid>
           )}
         </Grid>
       </Box>

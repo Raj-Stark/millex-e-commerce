@@ -12,7 +12,6 @@ import {
   List,
   ListItem,
   ListItemText,
-  useMediaQuery,
   Button,
 } from "@mui/material";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
@@ -26,7 +25,6 @@ import { cartAtom } from "@/commonAtoms/cartAtom";
 import { wishListAtom } from "@/commonAtoms/wishListAtom";
 import SearchBar from "./search-bar";
 import Image from "next/image";
-import appTheme from "@/config/theme";
 import appBarStyles from "./app-bar-styles.module.css";
 
 function ResponsiveAppBar() {

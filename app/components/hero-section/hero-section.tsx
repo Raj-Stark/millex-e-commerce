@@ -15,7 +15,9 @@ const HeroSection = () => {
     queryKey: ["banner"],
     queryFn: async () => {
       const endpoint = `${process.env.NEXT_PUBLIC_LOCAL_URL}banner`;
-      const response = await axios.get(endpoint);
+      const response = await axios.get(endpoint, {
+        withCredentials: true, // ✅ Ensures cookies are sent & CORS preflight is triggered
+      });
       return response.data;
     },
   });
