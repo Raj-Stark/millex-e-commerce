@@ -1,15 +1,59 @@
 "use client";
 
-import { Link, Paper, Stack, Typography } from "@mui/material";
-import React, { useState } from "react";
-import RegisterForm from "./register-form";
+import { Paper, Stack, Typography, Button } from "@mui/material";
+import React from "react";
+import { Google } from "@mui/icons-material";
+import { useGoogleLogin } from "@react-oauth/google";
+import { useRouter } from "next/navigation";
+import { useSetAtom } from "jotai";
+import { userAtom } from "@/commonAtoms/userAtom";
+import { toast } from "react-toastify";
 
 const FormBox = () => {
-  const [isLogin, setIsLogin] = useState(false);
+  const router = useRouter();
+  const setUser = useSetAtom(userAtom);
+
+  const responseGoogle = async (authResult: any) => {
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_LOCAL_URL}auth/google-login`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include", // to receive the token cookie
+          body: JSON.stringify({ code: authResult.code }),
+        },
+      );
+
+      if (!response.ok) {
+        throw new Error("Google login failed");
+      }
+
+      const data = await response.json();
+
+      setUser({
+        isLoggedIn: true,
+        name: data.user.name,
+        userId: data.user.userId,
+      });
+
+      toast.success("Login successful");
+      router.replace("/");
+    } catch (error) {
+      console.error("Google login error:", error);
+      toast.error("Login failed. Please try again.");
+    }
+  };
+
+  const googleLogin = useGoogleLogin({
+    onSuccess: responseGoogle,
+    onError: responseGoogle,
+    flow: "auth-code",
+  });
 
   return (
     <Paper
-      component={"article"}
+      component="article"
       sx={{
         maxWidth: "400px",
         padding: 4,
@@ -19,55 +63,33 @@ const FormBox = () => {
         backgroundColor: { xs: "rgba(255,255,255,0.1)", md: "white" },
       }}
     >
-      <Stack spacing={1}>
+      <Stack spacing={3} alignItems="center">
         <Typography
           color={{ xs: "white", md: "black" }}
           sx={{ fontSize: { xs: "24px", sm: "36px" }, fontWeight: "medium" }}
         >
-          {!isLogin ? "Create an account" : "Login To Exclusive"}
+          Welcome to Farm Gear
         </Typography>
         <Typography
           color={{ xs: "white", md: "black" }}
           sx={{ fontSize: { xs: "12px", sm: "16px" }, fontWeight: "medium" }}
         >
-          Enter your details below
+          Login with your Google Account
         </Typography>
-        <RegisterForm isLogin={isLogin} />
 
-        {!isLogin ? (
-          <Typography
-            color={{ xs: "white", md: "black" }}
-            fontSize={{ xs: "12px", sm: "16px" }}
-            sx={{ textAlign: "center", mt: "40px" }}
-          >
-            Already have an account ?{" "}
-            <Link
-              onClick={() => setIsLogin(true)}
-              sx={{
-                ml: 1,
-                pb: 1,
-                color: "secondary.main",
-                cursor: "pointer",
-              }}
-            >
-              Log In
-            </Link>
-          </Typography>
-        ) : (
-          <Typography
-            fontSize={{ xs: "12px", sm: "16px" }}
-            onClick={() => setIsLogin(false)}
-            sx={{
-              ml: 1,
-              pb: 1,
-              color: "secondary.main",
-              cursor: "pointer",
-              textAlign: "center",
-            }}
-          >
-            Go Back
-          </Typography>
-        )}
+        <Button
+          variant="outlined"
+          startIcon={<Google />}
+          onClick={() => googleLogin()}
+          sx={{
+            color: "black",
+            borderColor: "black",
+            textTransform: "none",
+            width: "100%",
+          }}
+        >
+          Continue with Google
+        </Button>
       </Stack>
     </Paper>
   );

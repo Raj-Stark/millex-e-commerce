@@ -3,7 +3,6 @@ import { Container, Divider, Grid, Paper, Typography } from "@mui/material";
 import React from "react";
 
 import UserDetailsForm from "./components/user-details-form";
-import UserPasswordUpdateForm from "./components/user-password-update-form";
 
 import ProfileList from "./components/profile-list";
 
@@ -38,18 +37,6 @@ const ProfilePage = () => {
             <UserDetailsForm />
 
             <Divider sx={{ my: 4 }} />
-
-            <Typography
-              sx={{
-                fontSize: "20px",
-                fontWeight: "medium",
-                mb: 3,
-                color: "secondary.main",
-              }}
-            >
-              Update Your Password
-            </Typography>
-            <UserPasswordUpdateForm />
           </Paper>
         </Grid>
       </Grid>
