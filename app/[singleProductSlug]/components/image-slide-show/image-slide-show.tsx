@@ -1,12 +1,10 @@
 "use client";
-import { ChevronLeft, ChevronRight } from "@mui/icons-material";
-import { IconButton, Paper } from "@mui/material";
+import { Paper } from "@mui/material";
 import React, { useState } from "react";
 import styles from "./styles.module.css";
 import ImageModal from "./ImageModal";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Zoom } from "swiper/modules";
-import SwiperContainer from "./SwiperContainer";
+import { Navigation, Pagination } from "swiper/modules";
 
 const ImageSlideShow = ({ images }: { images: string[] }) => {
   const [currentImage, setCurrentImage] = useState<number | null>(
@@ -26,18 +24,6 @@ const ImageSlideShow = ({ images }: { images: string[] }) => {
       return false;
     }
     return true;
-  };
-
-  const handleRightClick = () => {
-    if (hasMoreOnRight()) {
-      setCurrentImage((prev) => (prev !== null ? prev + 1 : null));
-    }
-  };
-
-  const handleLeftClick = () => {
-    if (hasMoreOnLeft()) {
-      setCurrentImage((prev) => (prev !== null ? prev - 1 : null));
-    }
   };
 
   return (

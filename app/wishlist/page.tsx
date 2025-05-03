@@ -6,10 +6,8 @@ import { useAtomValue } from "jotai";
 
 import React from "react";
 import ProductCard from "../components/product-card";
-import { useQuery } from "@tanstack/react-query";
+
 import { ProductType } from "@/types/product-types";
-import ProductCardSkeleton from "../components/product-card-shimmer";
-import axios from "axios";
 
 const RenderWishList: React.FC<{ wishlist: ProductType[] }> = (props) => {
   const wishlist = props.wishlist;
