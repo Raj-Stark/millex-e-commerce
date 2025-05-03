@@ -1,8 +1,8 @@
 "use client";
 
-import { Paper, Stack, Typography, Button } from "@mui/material";
+import { Paper, Stack, Typography } from "@mui/material";
 import React from "react";
-import { Google } from "@mui/icons-material";
+import GoogleButton from "react-google-button";
 import { useGoogleLogin } from "@react-oauth/google";
 import { useRouter } from "next/navigation";
 import { useSetAtom } from "jotai";
@@ -77,19 +77,11 @@ const FormBox = () => {
           Login with your Google Account
         </Typography>
 
-        <Button
-          variant="outlined"
-          startIcon={<Google />}
+        <GoogleButton
+          label="Continue with Google"
           onClick={() => googleLogin()}
-          sx={{
-            color: "black",
-            borderColor: "black",
-            textTransform: "none",
-            width: "100%",
-          }}
-        >
-          Continue with Google
-        </Button>
+          type="dark" // or "dark"
+        />
       </Stack>
     </Paper>
   );
