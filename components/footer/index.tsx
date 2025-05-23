@@ -14,7 +14,7 @@ import axios from "axios";
 
 const Footer = async () => {
   const { data } = await axios.get(
-    `${process.env.NEXT_PUBLIC_LOCAL_URL}category`,
+    `${process.env.NEXT_PUBLIC_LOCAL_URL}categories`,
   );
 
   return (

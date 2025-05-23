@@ -19,9 +19,7 @@ const PlaceOrderBox = () => {
   const router = useRouter();
 
   const getCartTotal = () => {
-    return cart.reduce((accu, item) => {
-      return (accu += item.cartTotal);
-    }, 0);
+    return cart.reduce((acc, item) => acc + item.cartTotal, 0);
   };
 
   const createOrderEndpoint = `${process.env.NEXT_PUBLIC_LOCAL_URL}order`;
@@ -36,6 +34,9 @@ const PlaceOrderBox = () => {
           items: cart.map((item) => ({
             amount: item.quantity,
             product: item.id,
+            name: item.title,
+            price: item.price,
+            image: item.image,
           })),
         },
         {
@@ -58,6 +59,7 @@ const PlaceOrderBox = () => {
         const errorMessage =
           error.response?.data?.msg || "Failed to place order!";
         toast.error(errorMessage);
+        console.error("Backend error:", error.response?.data);
       } else {
         toast.error("Failed to place order!");
       }

@@ -16,7 +16,7 @@ const CategorySection = (props: IProps) => {
   const { data } = useQuery({
     queryKey: ["category"],
     queryFn: async () => {
-      const endpoint = `${process.env.NEXT_PUBLIC_LOCAL_URL}category`;
+      const endpoint = `${process.env.NEXT_PUBLIC_LOCAL_URL}categories`;
       const response = await axios.get(endpoint);
       return response.data;
     },
