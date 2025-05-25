@@ -86,7 +86,6 @@ const UserDetailsForm = () => {
       toast.success("User successfully updated !!!");
     },
     onError: (error) => {
-      console.log(error);
       if (error instanceof AxiosError) {
         const errorMessage =
           error.response?.data?.msg || "Failed to update user!";
