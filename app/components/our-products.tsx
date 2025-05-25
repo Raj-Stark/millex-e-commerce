@@ -1,7 +1,5 @@
-"use client";
 import SectionHeader from "@/components/section-header";
 import {
-  CircularProgress,
   Container,
   Grid,
   Box,
@@ -11,7 +9,6 @@ import {
 } from "@mui/material";
 import React from "react";
 import ProductCard from "./product-card";
-import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { ProductType } from "@/types/product-types";
 
@@ -19,46 +16,34 @@ interface IProps {
   sx?: SxProps<Theme>;
 }
 
-const OurProducts = (props: IProps) => {
-  const sx = props.sx || {};
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ["product"],
-    queryFn: async () => {
-      const endpoint = `${process.env.NEXT_PUBLIC_LOCAL_URL}product`;
-      const response = await axios.get(endpoint);
-      return response.data;
-    },
-  });
-
-  if (isLoading) {
-    return (
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          minHeight: "100vh",
-          ...sx,
-        }}
-      >
-        <CircularProgress />
-      </Box>
-    );
+async function getFeaturedProducts(): Promise<ProductType[]> {
+  try {
+    const endpoint = `${process.env.NEXT_PUBLIC_LOCAL_URL}product`;
+    const response = await axios.get<{ products: ProductType[] }>(endpoint);
+    return response.data.products.filter((p) => p.featured);
+  } catch (error) {
+    console.error("Failed to fetch products:", error);
+    return [];
   }
+}
 
-  if (isError) {
+const OurProducts = async (props: IProps) => {
+  const sx = props.sx || {};
+  const featuredProducts = await getFeaturedProducts();
+
+  if (featuredProducts.length === 0) {
     return (
       <Box
         sx={{
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          minHeight: "100vh",
+          minHeight: "40vh",
           ...sx,
         }}
       >
-        <Typography variant="h6" color="error">
-          Something went wrong: Unable to load products.
+        <Typography variant="h6" color="textSecondary">
+          No featured products available.
         </Typography>
       </Box>
     );
@@ -77,15 +62,11 @@ const OurProducts = (props: IProps) => {
         sx={{ marginTop: "20px !important" }}
         columns={{ xs: 1, sm: 2, md: 3, lg: 4 }}
       >
-        {data &&
-          data.products &&
-          data.products
-            .filter((item: ProductType) => item.featured)
-            .map((product: ProductType) => (
-              <Grid item xs={1} key={product._id}>
-                <ProductCard product={product} />
-              </Grid>
-            ))}
+        {featuredProducts.map((product) => (
+          <Grid item xs={1} key={product._id}>
+            <ProductCard product={product} />
+          </Grid>
+        ))}
       </Grid>
     </Container>
   );

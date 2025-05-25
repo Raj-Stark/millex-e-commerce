@@ -1,21 +1,32 @@
 "use client";
+
 import { Box, Typography, Paper } from "@mui/material";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import React from "react";
+import { useRouter } from "next/navigation";
 
 interface Props {
   text: string;
   imgUrl: string;
   categoryId: string;
   slug: string;
+  onClick?: () => void;
 }
 
-const CategoryBox = ({ text, imgUrl, categoryId, slug }: Props) => {
+const CategoryBox = ({ text, imgUrl, slug, onClick }: Props) => {
   const router = useRouter();
+
+  const handleClick = () => {
+    if (onClick) {
+      onClick();
+    } else {
+      router.push(`/category/${slug}`);
+    }
+  };
+
   return (
     <Paper
-      component={"article"}
+      component="article"
       elevation={3}
       sx={{
         display: "flex",
@@ -31,9 +42,9 @@ const CategoryBox = ({ text, imgUrl, categoryId, slug }: Props) => {
     >
       <Image
         src={imgUrl}
-        alt="Machine Image"
-        fill={true}
-        sizes={"100%"}
+        alt={`${text} Image`}
+        fill
+        sizes="100%"
         style={{
           objectFit: "cover",
           zIndex: 1,
@@ -41,7 +52,7 @@ const CategoryBox = ({ text, imgUrl, categoryId, slug }: Props) => {
       />
 
       <Box
-        onClick={() => router.push(`/category/${slug}`)}
+        onClick={handleClick}
         sx={{
           cursor: "pointer",
           position: "relative",
